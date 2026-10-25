@@ -87,6 +87,12 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .nav-links a[aria-current="page"]::after{content:"";position:absolute;left:0;right:0;bottom:-3px;height:2px;background:var(--brick)}
 .nav-cta{display:flex;align-items:center;gap:14px}
 .nav-cta .btn{min-height:44px;font-size:16px;padding:0 18px}
+.lang{display:inline-flex;border:1px solid var(--line);border-radius:4px;overflow:hidden;flex:none}
+.lang-btn{min-width:44px;min-height:42px;padding:0 10px;border:0;background:transparent;font-family:var(--font-display);font-weight:700;font-size:15px;letter-spacing:.08em;color:var(--ink-2);cursor:pointer}
+.lang-btn+.lang-btn{border-left:1px solid var(--line)}
+.lang-btn:hover{color:var(--ink)}
+.lang-btn[aria-pressed="true"]{background:var(--ink);color:#fff}
+@media (max-width:420px){.lang-btn{min-width:38px;padding:0 6px;font-size:14px}.nav{gap:10px}}
 .nav-toggle{display:none;width:44px;height:44px;align-items:center;justify-content:center;background:transparent;border:1px solid var(--line);border-radius:4px;color:var(--ink);cursor:pointer;padding:0}
 .nav-toggle svg{width:24px;height:24px}
 .mobile-menu{border-top:1px solid var(--line);background:var(--ground)}
@@ -96,13 +102,15 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .mobile-menu .btn{margin-top:18px}
 .admin-link{display:inline-flex;align-items:center;gap:8px;font-weight:600;color:var(--brick)!important}
 .badge{display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:22px;padding:0 7px;border-radius:11px;background:var(--brick);color:#fff;font-family:var(--font-display);font-weight:700;font-size:13px;letter-spacing:.02em;font-variant-numeric:tabular-nums}
-@media (min-width:981px){.mobile-menu{display:none!important}}
-@media (max-width:980px){
+@media (min-width:1321px){.mobile-menu{display:none!important}}
+@media (max-width:1320px){
   .nav-links{display:none}
   .nav-toggle{display:inline-flex}
   .nav-cta .btn{display:none}
 }
 @media (max-width:420px){.brand-name{font-size:22px}}
+@media (max-width:480px){.brand-name .llc{display:none}}
+.nav-cta .btn{white-space:nowrap}
 
 /* home hero band */
 .hero{background:var(--slate);color:var(--slate-fg);padding-block:64px 72px}
@@ -444,7 +452,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
     <nav class="nav" aria-label="Main">
       <a class="brand" href="#top">
         <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="4" fill="#9B3B2E"/><g fill="#F4F2EE"><rect x="6" y="8" width="13" height="6"/><rect x="21" y="8" width="13" height="6"/><rect x="6" y="17" width="6" height="6"/><rect x="14" y="17" width="13" height="6"/><rect x="29" y="17" width="5" height="6"/><rect x="6" y="26" width="13" height="6"/><rect x="21" y="26" width="13" height="6"/></g></svg>
-        <span class="brand-name">C&amp;W Masonry, LLC</span>
+        <span class="brand-name">C&amp;W Masonry<span class="llc">, LLC</span></span>
       </a>
       <ul class="nav-links">
         <li><a href="#top" data-view="home">Home</a></li>
@@ -456,6 +464,10 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
         <li id="admin-nav" hidden><a class="admin-link" href="#requests">Requests <span class="badge" id="req-count">0</span></a></li>
       </ul>
       <div class="nav-cta">
+        <div class="lang" role="group" aria-label="Language">
+          <button class="lang-btn" type="button" data-lang="en" lang="en" aria-pressed="true">EN</button>
+          <button class="lang-btn" type="button" data-lang="es" lang="es" aria-pressed="false">ES</button>
+        </div>
         <a class="btn btn-primary" href="#contact">Get a Free Estimate</a>
         <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
@@ -1425,6 +1437,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
   <a class="btn btn-primary" href="#contact">Request a Free Estimate</a>
 </div>
 
+<script src="es.js"></script>
 <script>
 (function () {
   'use strict';
@@ -1436,15 +1449,73 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
   function closeMenu() {
     menu.hidden = true;
     toggle.setAttribute('aria-expanded', 'false');
-    toggle.setAttribute('aria-label', 'Open menu');
+    toggle.setAttribute('aria-label', tr('Open menu'));
   }
   toggle.addEventListener('click', function () {
     if (menu.hidden) {
       menu.hidden = false;
       toggle.setAttribute('aria-expanded', 'true');
-      toggle.setAttribute('aria-label', 'Close menu');
+      toggle.setAttribute('aria-label', tr('Close menu'));
     } else { closeMenu(); }
   });
+
+  /* ---------- language (EN / ES) ---------- */
+  var ES = window.CW_ES || {};
+  var DYN = ES.__dyn || {};
+  var lang = 'en';
+  var textNodes = [], attrNodes = [];
+  function tr(s) { return lang === 'es' ? (DYN[s] || (typeof ES[s] === 'string' ? ES[s] : s)) : s; }
+  (function collect() {
+    var w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+      acceptNode: function (n) {
+        var p = n.parentNode;
+        if (!p || p.nodeName === 'SCRIPT' || p.nodeName === 'STYLE') return NodeFilter.FILTER_REJECT;
+        return n.nodeValue.trim() ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+      }
+    });
+    var n;
+    while ((n = w.nextNode())) {
+      var key = n.nodeValue.replace(/\s+/g, ' ').trim();
+      if (typeof ES[key] === 'string') textNodes.push({ n: n, en: n.nodeValue, key: key });
+    }
+    each(document.querySelectorAll('[aria-label],[alt],[placeholder]'), function (el) {
+      if (el === toggle) return;
+      ['aria-label', 'alt', 'placeholder'].forEach(function (a) {
+        var v = el.getAttribute(a);
+        if (v && (typeof ES[v] === 'string' || DYN[v])) attrNodes.push({ el: el, a: a, en: v });
+      });
+    });
+  })();
+  function applyLang(l) {
+    lang = l === 'es' ? 'es' : 'en';
+    textNodes.forEach(function (o) {
+      if (lang === 'es') {
+        var es = ES[o.key];
+        var lead = /^[,.;:]/.test(es) ? '' : o.en.match(/^\s*/)[0];
+        o.n.nodeValue = lead + es + o.en.match(/\s*$/)[0];
+      } else { o.n.nodeValue = o.en; }
+    });
+    attrNodes.forEach(function (o) { o.el.setAttribute(o.a, tr(o.en)); });
+    toggle.setAttribute('aria-label', tr(menu.hidden ? 'Open menu' : 'Close menu'));
+    document.documentElement.lang = lang;
+    each(document.querySelectorAll('.lang-btn'), function (b) {
+      b.setAttribute('aria-pressed', String(b.getAttribute('data-lang') === lang));
+    });
+    if (!errBoxRef().hidden) errBoxRef().hidden = true;
+  }
+  function errBoxRef() { return $('form-error'); }
+  each(document.querySelectorAll('.lang-btn'), function (b) {
+    b.addEventListener('click', function () {
+      applyLang(b.getAttribute('data-lang'));
+      try { localStorage.setItem('cw-lang', lang); } catch (e) {}
+    });
+  });
+  (function initLang() {
+    var saved = null;
+    try { saved = localStorage.getItem('cw-lang'); } catch (e) {}
+    if (!saved && navigator.language && /^es\b/i.test(navigator.language)) saved = 'es';
+    if (saved === 'es') applyLang('es');
+  })();
   each(menu.querySelectorAll('a'), function (a) { a.addEventListener('click', closeMenu); });
 
   /* Links from a service page pre-check that service on the form. */
@@ -1589,7 +1660,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
     e.preventDefault();
     var d = collect();
     var problems = validate(d);
-    if (problems.length) { errBox.textContent = 'Please add ' + problems.join(' and ') + '.'; show(errBox); return; }
+    if (problems.length) { errBox.textContent = tr('Please add ') + problems.map(tr).join(tr(' and ')) + '.'; show(errBox); return; }
     submitBtn.disabled = true;
     var done = function () { submitBtn.disabled = false; };
     if (requestsCol && isAdmin) {
