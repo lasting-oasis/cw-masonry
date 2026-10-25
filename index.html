@@ -1,0 +1,1719 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>C&amp;W Masonry, LLC</title>
+<meta name="description" content="C&W Masonry, LLC offers masonry, land clearing, and grading from one crew. Request a free estimate.">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600&display=swap">
+<style>
+/* Layout: one page, four views (Home, Masonry, Land Clearing, Grading) switched by the hash. Full-width bands (slate heroes, mortar-white sections, a brick call-to-action) on a 1200px column; running-bond strips mark joints between bands. Single committed light look. */
+:root{
+  --ground:#F4F2EE;
+  --ground-2:#E8E4DD;
+  --card:#FFFFFF;
+  --ink:#231F1C;
+  --ink-2:#5B544E;
+  --line:#D6CFC6;
+  --brick:#9B3B2E;
+  --brick-2:#7C2E23;
+  --brick-on-dark:#E3937F;
+  --brick-tint:#FBF1EE;
+  --slate:#2A2725;
+  --slate-2:#3A3633;
+  --slate-fg:#F3EEE7;
+  --slate-fg-2:#C9C1B8;
+  --mark:#FBE89A;
+  --ok:#2E6B3F;
+  --ok-bg:#EDF4EE;
+  --font-display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+  --font-body:Barlow,"Helvetica Neue",Arial,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--font-body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--ground)}
+img{max-width:100%;display:block}
+h1,h2,h3,h4{font-family:var(--font-display);line-height:1.05;margin:0;text-wrap:balance;letter-spacing:.005em}
+h1:focus,h2:focus{outline:none}
+p,ul,ol,dl{margin:0}
+a{color:var(--brick)}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,summary:focus-visible{outline:3px solid var(--brick);outline-offset:2px}
+.on-dark a:focus-visible,.on-dark button:focus-visible{outline-color:#fff}
+
+.wrap{max-width:1200px;margin-inline:auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+.eyebrow{font-family:var(--font-display);font-weight:600;font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:var(--brick)}
+.eyebrow-dark{color:var(--brick-on-dark)}
+.meta{font-family:var(--font-display);font-weight:600;font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2)}
+.section{padding-block:76px;scroll-margin-top:84px}
+.section-head{display:grid;gap:12px;max-width:760px;margin-bottom:44px}
+.section h2{font-size:clamp(34px,4.2vw,50px);font-weight:700}
+.lede{font-size:19px;color:var(--ink-2);max-width:62ch}
+.ph{background:var(--mark);color:var(--ink);padding:0 5px;border-radius:2px;font-weight:600}
+.band-white{background:var(--card);border-block:1px solid var(--line)}
+.band-tint{background:var(--ground-2);border-block:1px solid var(--line)}
+.view[hidden]{display:none}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 22px;border-radius:4px;border:2px solid transparent;font-family:var(--font-display);font-weight:600;font-size:18px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;cursor:pointer;line-height:1.1;text-align:center;transition:background-color .15s,border-color .15s,color .15s}
+.btn-primary{background:var(--brick);color:#fff;border-color:var(--brick)}
+.btn-primary:hover{background:var(--brick-2);border-color:var(--brick-2);color:#fff}
+.btn-outline{background:transparent;color:var(--slate-fg);border-color:var(--slate-fg-2)}
+.btn-outline:hover{border-color:#fff;color:#fff}
+.btn-white{background:#fff;color:var(--brick);border-color:#fff}
+.btn-white:hover{background:#F6E7E2;border-color:#F6E7E2;color:var(--brick-2)}
+.btn-ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.55)}
+.btn-ghost:hover{border-color:#fff}
+.btn-quiet{background:transparent;color:var(--ink);border-color:var(--line);font-size:15px;min-height:40px;padding:0 14px}
+.btn-quiet:hover{border-color:var(--ink-2)}
+.btn[disabled]{opacity:.6;cursor:default}
+
+/* header */
+.site-header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--ground);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:72px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink);min-width:0}
+.brand-mark{width:40px;height:40px;flex:none}
+.brand-name{font-family:var(--font-display);font-weight:700;font-size:26px;line-height:1;letter-spacing:.01em;white-space:nowrap}
+.nav-links{display:flex;align-items:center;gap:26px;list-style:none;padding:0}
+.nav-links a{position:relative;color:var(--ink);text-decoration:none;font-weight:500;font-size:16px;padding:6px 0}
+.nav-links a:hover{color:var(--brick)}
+.nav-links a[aria-current="page"]{color:var(--brick);font-weight:600}
+.nav-links a[aria-current="page"]::after{content:"";position:absolute;left:0;right:0;bottom:-3px;height:2px;background:var(--brick)}
+.nav-cta{display:flex;align-items:center;gap:14px}
+.nav-cta .btn{min-height:44px;font-size:16px;padding:0 18px}
+.nav-toggle{display:none;width:44px;height:44px;align-items:center;justify-content:center;background:transparent;border:1px solid var(--line);border-radius:4px;color:var(--ink);cursor:pointer;padding:0}
+.nav-toggle svg{width:24px;height:24px}
+.mobile-menu{border-top:1px solid var(--line);background:var(--ground)}
+.mobile-menu-inner{display:grid;gap:0;padding-block:8px 18px}
+.mobile-menu a:not(.btn){display:block;padding:14px 0;color:var(--ink);text-decoration:none;font-weight:500;font-size:18px;border-bottom:1px solid var(--line)}
+.mobile-menu a[aria-current="page"]{color:var(--brick);font-weight:600}
+.mobile-menu .btn{margin-top:18px}
+.admin-link{display:inline-flex;align-items:center;gap:8px;font-weight:600;color:var(--brick)!important}
+.badge{display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:22px;padding:0 7px;border-radius:11px;background:var(--brick);color:#fff;font-family:var(--font-display);font-weight:700;font-size:13px;letter-spacing:.02em;font-variant-numeric:tabular-nums}
+@media (min-width:981px){.mobile-menu{display:none!important}}
+@media (max-width:980px){
+  .nav-links{display:none}
+  .nav-toggle{display:inline-flex}
+  .nav-cta .btn{display:none}
+}
+@media (max-width:420px){.brand-name{font-size:22px}}
+
+/* home hero band */
+.hero{background:var(--slate);color:var(--slate-fg);padding-block:64px 72px}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:56px;align-items:center}
+.hero-copy{display:grid;gap:22px;min-width:0}
+.hero .hero-h{font-size:clamp(36px,4.6vw,56px);font-weight:700;color:#fff}
+.hero-lede{font-size:19px;color:var(--slate-fg-2);max-width:56ch}
+.hero-actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:6px}
+.hero-photo{position:relative;margin:0;aspect-ratio:4/3;max-width:100%;border-radius:6px;overflow:hidden;border:1px solid var(--slate-2);background:var(--slate-2)}
+.hero-photo img{width:100%;height:100%;object-fit:cover;object-position:50% 50%}
+.hero-photo figcaption{position:absolute;left:0;right:0;bottom:0;padding:10px 14px;background:rgba(42,39,37,.86);color:var(--slate-fg-2);font-family:var(--font-display);font-weight:600;font-size:13px;letter-spacing:.1em;text-transform:uppercase}
+@media (max-width:900px){.hero-grid{grid-template-columns:1fr;gap:40px}.hero{padding-block:52px 56px}}
+
+/* parallax opening scene */
+.scene{position:relative;height:clamp(560px,calc(100svh - 72px),920px);overflow:hidden;isolation:isolate;background:#22303F}
+.layer{position:absolute;inset:0;will-change:transform}
+.l-sky{background:linear-gradient(180deg,#1F2B3A 0%,#4A4A5A 38%,#9C6B5E 66%,#E2A27A 86%,#F1C08E 100%)}
+.sun{position:absolute;left:62%;top:46%;width:clamp(90px,12vw,170px);aspect-ratio:1;max-width:100%;border-radius:50%;background:radial-gradient(circle,#FBE3B8 0%,#F6C98E 55%,rgba(246,201,142,0) 72%)}
+.layer svg:not(.mach){position:absolute;left:0;bottom:0;width:100%;height:100%}
+.l-title{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:clamp(56px,13vh,140px);text-align:center;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));gap:14px}
+.l-title .eyebrow{color:#F6D3A3;font-size:clamp(13px,1.4vw,17px)}
+.l-title h1{font-size:clamp(50px,9.4vw,138px);font-weight:700;line-height:.92;text-transform:uppercase;color:#fff;letter-spacing:.01em;text-shadow:0 2px 24px rgba(20,16,14,.35)}
+.l-machines{pointer-events:none}
+.mach{position:absolute;bottom:13%;height:auto;display:block}
+.mach-left{left:2%;width:clamp(170px,28vw,400px)}
+.mach-right{right:1%;width:clamp(230px,40vw,600px)}
+.scroll-cue{position:absolute;left:50%;bottom:clamp(96px,17%,150px);transform:translateX(-50%);z-index:5;display:inline-flex;flex-direction:column;align-items:center;gap:4px;color:#fff;text-decoration:none;font-family:var(--font-display);font-weight:600;font-size:13px;letter-spacing:.16em;text-transform:uppercase;padding:8px 12px}
+.scroll-cue svg{width:20px;height:20px;animation:cue 1.8s ease-in-out infinite}
+@keyframes cue{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+@media (prefers-reduced-motion:reduce){.scroll-cue svg{animation:none}.layer{transform:none!important}}
+@media (max-width:600px){.mach{bottom:11%}.mach-left{width:118px;left:0}.mach-right{width:205px;right:-6px}.scroll-cue{display:none}.l-title h1{font-size:clamp(38px,11vw,56px)}.l-title{padding-top:48px}}
+.service-photo img.plx{transform:scale(1.14);will-change:transform}
+
+/* running-bond joint between bands */
+.joint{height:22px;background-color:#CFC7BC;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='22'%3E%3Crect width='64' height='22' fill='%23CFC7BC'/%3E%3Cg fill='%23A6584B'%3E%3Crect x='1' y='2' width='30' height='8'/%3E%3Crect x='33' y='2' width='30' height='8'/%3E%3Crect x='-15' y='12' width='30' height='8'/%3E%3Crect x='17' y='12' width='30' height='8'/%3E%3Crect x='49' y='12' width='30' height='8'/%3E%3C/g%3E%3C/svg%3E");background-repeat:repeat-x;background-size:64px 22px}
+
+/* facts strip */
+.facts{background:var(--ground-2);border-bottom:1px solid var(--line)}
+.facts-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+.fact{display:flex;align-items:center;gap:12px;padding:18px 24px;font-weight:500;border-left:1px solid var(--line);min-width:0}
+.fact:first-child{border-left:0;padding-left:0}
+.fact svg{width:22px;height:22px;flex:none;color:var(--brick)}
+@media (max-width:760px){
+  .facts-grid{grid-template-columns:1fr}
+  .fact{border-left:0;padding:12px 0;border-top:1px solid var(--line)}
+  .fact:first-child{border-top:0}
+}
+
+/* service cards (home) */
+.services-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px}
+.service{background:var(--card);border:1px solid var(--line);border-radius:6px;overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.service-photo{aspect-ratio:16/9;max-width:100%;overflow:hidden;background:var(--ground-2);flex:none}
+.service-photo img{width:100%;height:100%;object-fit:cover}
+.pos-top{object-position:50% 25%}
+.service-body{padding:24px 24px 28px;display:grid;gap:14px;align-content:start;flex:1;min-width:0}
+.service h3{font-size:30px;font-weight:700}
+.service p{color:var(--ink-2)}
+.tags{display:flex;flex-wrap:wrap;gap:8px;list-style:none;padding:0;margin-top:4px}
+.tags li{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:5px 9px;border:1px solid var(--line);border-radius:3px;color:var(--ink-2)}
+.service-link{margin-top:auto;padding-top:6px;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+.service-link:hover{text-decoration:underline}
+@media (max-width:900px){
+  .services-grid{grid-template-columns:1fr}
+  .service{flex-direction:row}
+  .service-photo{flex:0 0 42%;aspect-ratio:auto}
+}
+@media (max-width:600px){
+  .service{flex-direction:column}
+  .service-photo{flex:none;aspect-ratio:16/9}
+}
+
+/* process overview (home) */
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:32px;list-style:none;padding:0}
+.step{border-top:3px solid var(--brick);padding-top:18px;display:grid;gap:10px;min-width:0;align-content:start}
+.step-num{font-family:var(--font-display);font-weight:700;font-size:44px;line-height:1;color:var(--brick);font-variant-numeric:tabular-nums}
+.step h3{font-size:24px;font-weight:700}
+.step p{color:var(--ink-2);font-size:16px}
+@media (max-width:960px){.steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.steps{grid-template-columns:1fr}}
+
+/* accordions (FAQ) */
+.acc{border-top:1px solid var(--line)}
+.acc:last-of-type{border-bottom:1px solid var(--line)}
+.acc summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:18px;padding:20px 4px;font-family:var(--font-display);font-weight:700;font-size:22px;line-height:1.1}
+.acc summary::-webkit-details-marker{display:none}
+.acc summary .chev{flex:none;width:28px;height:28px;border:1px solid var(--line);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;color:var(--brick);transition:transform .2s}
+.acc summary .chev svg{width:14px;height:14px}
+.acc[open] summary .chev{transform:rotate(180deg)}
+.acc summary:hover .chev{border-color:var(--brick)}
+.acc-body{padding:0 4px 28px;color:var(--ink-2);max-width:70ch}
+
+/* numbered step list (service views) */
+.steplist{list-style:none;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 48px;counter-reset:s}
+.steplist li{display:grid;grid-template-columns:44px minmax(0,1fr);gap:0 12px;align-items:start;min-width:0;border-top:1px solid var(--line);padding-top:16px}
+.steplist li::before{counter-increment:s;content:counter(s,decimal-leading-zero);font-family:var(--font-display);font-weight:700;font-size:26px;line-height:1.1;color:var(--brick);font-variant-numeric:tabular-nums;padding-top:1px}
+.steplist h4{font-size:20px;font-weight:700;margin-bottom:4px}
+.steplist p{color:var(--ink-2);font-size:16px;line-height:1.5}
+.steplist .sub{grid-column:1/-1;display:block;background:var(--ground-2);border:0;border-radius:4px;padding:14px 16px;font-size:15px;color:var(--ink-2)}
+.steplist .sub::before{content:none}
+.steplist .sub strong{color:var(--ink)}
+@media (max-width:760px){.steplist{grid-template-columns:1fr}}
+
+/* service views */
+.svc-hero{background:var(--slate);color:var(--slate-fg);padding-block:44px 64px}
+.crumbs{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:14px;color:var(--slate-fg-2);list-style:none;padding:0;margin-bottom:28px}
+.crumbs a{color:var(--slate-fg-2);text-decoration:none}
+.crumbs a:hover{color:#fff;text-decoration:underline}
+.crumbs li+li::before{content:"›";margin-right:8px}
+.crumbs li:last-child{color:#fff;font-weight:500}
+.svc-hero h1{font-size:clamp(40px,5.6vw,68px);font-weight:700;color:#fff}
+.chips{display:flex;flex-wrap:wrap;gap:8px;list-style:none;padding:0;margin-top:4px}
+.chips li{font-family:var(--font-display);font-weight:600;font-size:14px;letter-spacing:.08em;text-transform:uppercase;padding:6px 10px;border:1px solid var(--slate-2);border-radius:3px;color:var(--slate-fg-2);background:rgba(255,255,255,.04)}
+.offer-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:30px 32px}
+.offer{border-top:1px solid var(--line);padding-top:18px;display:grid;gap:10px;align-content:start;min-width:0}
+.offer .ic{width:30px;height:30px;color:var(--brick)}
+.offer h3{font-size:24px;font-weight:700}
+.offer p{color:var(--ink-2);font-size:16px}
+@media (max-width:1100px){.offer-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.offer-grid{grid-template-columns:1fr}}
+.detail-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:40px 56px}
+.detail{display:grid;gap:12px;min-width:0;align-content:start}
+.detail h3{font-size:26px;font-weight:700}
+.detail p{color:var(--ink-2)}
+.detail dl{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px 18px;font-size:16px}
+.detail dt{font-weight:600;white-space:nowrap}
+.detail dd{color:var(--ink-2)}
+.detail ul{padding-left:20px;color:var(--ink-2);display:grid;gap:6px}
+.detail ul strong{color:var(--ink)}
+@media (max-width:760px){.detail-grid{grid-template-columns:1fr}.detail dl{grid-template-columns:1fr;gap:2px 0}.detail dd{margin-bottom:8px}}
+.svc-process .section-head{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:12px 24px;max-width:none}
+.cta-band{background:var(--brick);color:#fff}
+.cta-inner{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:22px 40px;padding-block:46px}
+.cta-copy{display:grid;gap:8px;min-width:0;max-width:60ch}
+.cta-band h2{font-size:clamp(30px,3.6vw,42px);color:#fff}
+.cta-band p{color:#F6D9D1}
+.cta-actions{display:flex;flex-wrap:wrap;gap:12px}
+.pairs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+.pair{display:grid;grid-template-columns:140px minmax(0,1fr);gap:18px;align-items:center;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:var(--card);text-decoration:none;color:var(--ink);min-width:0}
+.pair img{width:100%;height:100%;object-fit:cover;aspect-ratio:4/3;max-width:100%}
+.pair-body{padding:14px 18px 14px 0;display:grid;gap:4px;min-width:0}
+.pair h3{font-size:22px}
+.pair p{font-size:15px;color:var(--ink-2)}
+.pair:hover h3{color:var(--brick)}
+@media (max-width:600px){.pairs{grid-template-columns:1fr}.pair{grid-template-columns:110px minmax(0,1fr)}}
+
+/* diagrams, swatches, scenes (service views) */
+.diagram{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:36px 48px;align-items:start}
+.fig{margin:0;background:var(--card);border:1px solid var(--line);border-radius:6px;overflow:hidden;min-width:0}
+.fig-scroll{overflow-x:auto}
+.fig svg{display:block;width:100%;height:auto;min-width:520px}
+.fig-sm svg{min-width:0}
+.fig-cap{padding:12px 16px;border-top:1px solid var(--line);font-size:14px;color:var(--ink-2);line-height:1.5}
+.legend{list-style:none;padding:0;display:grid;gap:16px;counter-reset:lg}
+.legend li{display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:start;min-width:0}
+.legend li::before{counter-increment:lg;content:counter(lg);width:28px;height:28px;border-radius:50%;background:var(--brick);color:#fff;font-family:var(--font-display);font-weight:700;font-size:15px;display:inline-flex;align-items:center;justify-content:center;margin-top:1px}
+.legend strong{display:block;font-family:var(--font-display);font-size:20px;font-weight:700;line-height:1.1;margin-bottom:3px}
+.legend span{color:var(--ink-2);font-size:15.5px;line-height:1.5}
+@media (max-width:900px){.diagram{grid-template-columns:1fr}}
+.swatches{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px 14px;margin-top:6px}
+.swatch{display:grid;gap:6px;min-width:0;align-content:start}
+.swatch svg{width:100%;height:auto;display:block;border:1px solid var(--line);border-radius:4px}
+.swatch b{font-family:var(--font-display);font-weight:700;font-size:17px;line-height:1.1}
+.swatch small{font-size:13px;color:var(--ink-2);line-height:1.4}
+@media (max-width:420px){.swatches{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.jprofs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-top:6px}
+.jprof{text-align:center;font-size:13px;color:var(--ink-2);min-width:0}
+.jprof svg{width:100%;height:auto;display:block;border:1px solid var(--line);border-radius:4px;background:#fff;margin-bottom:6px}
+@media (max-width:560px){.jprofs{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.scenes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;margin-bottom:44px}
+.scene-card{display:grid;gap:10px;min-width:0;align-content:start}
+.scene-card svg{width:100%;height:auto;display:block;border:1px solid var(--line);border-radius:6px}
+.scene-t{font-family:var(--font-display);font-weight:700;font-size:21px;line-height:1.1}
+.scene-t small{display:block;font-family:var(--font-body);font-weight:400;font-size:14.5px;color:var(--ink-2);margin-top:4px;line-height:1.45}
+@media (max-width:760px){.scenes{grid-template-columns:1fr}}
+.lineup{overflow-x:auto;margin-bottom:40px;border:1px solid var(--line);border-radius:6px;background:var(--card)}
+.lineup svg{display:block;width:100%;height:auto;min-width:760px}
+.panels{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-block:4px 6px}
+.panels figure{margin:0;display:grid;gap:6px;min-width:0}
+.panels svg{width:100%;height:auto;display:block;border:1px solid var(--line);border-radius:4px}
+.panels figcaption{font-size:13px;color:var(--ink-2);line-height:1.4}
+@media (max-width:520px){.panels{grid-template-columns:1fr}}
+.dg-t{font-family:var(--font-display);font-weight:600;font-size:15px;letter-spacing:.06em;text-transform:uppercase;fill:#231F1C}
+.dg-n{font-family:var(--font-body);font-size:13px;fill:#5B544E}
+.callout circle{fill:#9B3B2E;stroke:#fff;stroke-width:2}
+.callout text{fill:#fff;font-family:var(--font-display);font-weight:700;font-size:16px;text-anchor:middle;dominant-baseline:central}
+.detail .fig{margin-top:4px}
+
+/* about */
+.about-grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:56px;align-items:start}
+.about-text{display:grid;gap:18px;min-width:0}
+.about-text h2{margin-bottom:4px}
+.about-text p:not(.eyebrow){max-width:62ch}
+.glance{background:var(--ground-2);border:1px solid var(--line);border-radius:6px;padding:26px 28px;display:grid;gap:16px;min-width:0}
+.glance h3{font-size:22px;font-weight:700}
+.glance dl{display:grid;grid-template-columns:auto minmax(0,1fr);gap:12px 20px}
+.glance dt{font-family:var(--font-display);font-weight:600;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-2);padding-top:4px}
+.glance dd{font-weight:500}
+@media (max-width:860px){.about-grid{grid-template-columns:1fr;gap:36px}}
+
+/* contact */
+.contact{background:var(--slate);color:var(--slate-fg)}
+.contact-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:56px;align-items:start}
+.contact-intro{display:grid;gap:14px;min-width:0}
+.contact h2{color:#fff}
+.contact .lede{color:var(--slate-fg-2)}
+.contact-list{display:grid;gap:22px;margin-top:20px;list-style:none;padding:0}
+.contact-item{display:grid;grid-template-columns:24px minmax(0,1fr);gap:14px;align-items:start}
+.contact-item svg{width:24px;height:24px;color:var(--brick-on-dark);margin-top:4px}
+.contact-label{font-family:var(--font-display);font-weight:600;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--slate-fg-2)}
+.contact-value{font-size:19px;font-weight:500;color:#fff}
+.form{background:var(--card);color:var(--ink);border-radius:6px;padding:32px;display:grid;gap:18px;min-width:0}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.field{display:grid;gap:6px;min-width:0}
+.field label,.field .lbl{font-weight:600;font-size:14px;letter-spacing:.02em}
+.field input,.field select,.field textarea{font:inherit;font-size:16px;padding:11px 14px;border:1px solid var(--line);border-radius:4px;background:#fff;color:var(--ink);min-height:48px;width:100%}
+.field textarea{min-height:130px;resize:vertical;line-height:1.5}
+.field .hint{font-size:13px;color:var(--ink-2)}
+.checks{display:flex;flex-wrap:wrap;gap:10px}
+.checks label{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border:1px solid var(--line);border-radius:4px;font-weight:500;font-size:15px;cursor:pointer;min-height:44px;background:#fff}
+.checks label:has(input:checked){border-color:var(--brick);background:var(--brick-tint)}
+.checks input{width:18px;height:18px;margin:0;accent-color:var(--brick)}
+.form .btn{justify-self:start}
+.form-note{font-size:14px;color:var(--ink-2)}
+.notice{border:1px solid var(--brick);background:var(--brick-tint);color:var(--ink);padding:16px 18px;border-radius:4px;font-size:15px;line-height:1.5;display:grid;gap:12px}
+.notice-ok{border-color:var(--ok);background:var(--ok-bg)}
+.notice h4{font-size:20px;font-weight:700}
+.notice pre{margin:0;white-space:pre-wrap;word-break:break-word;font:14px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#fff;border:1px solid var(--line);border-radius:4px;padding:12px 14px;max-height:260px;overflow:auto}
+.notice-actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.notice-actions .copied{font-size:14px;color:var(--ok);font-weight:600}
+@media (max-width:860px){.contact-grid{grid-template-columns:1fr;gap:40px}}
+@media (max-width:560px){.form-row{grid-template-columns:1fr}.form{padding:22px}}
+
+/* owner-only requests panel */
+.requests{background:var(--card);border-top:1px solid var(--line)}
+.requests .section-head{margin-bottom:24px}
+.req-tools{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-bottom:22px}
+.req-tools .field{display:flex;align-items:center;gap:8px}
+.req-tools select{min-height:40px;padding:6px 10px;font:inherit;font-size:15px;border:1px solid var(--line);border-radius:4px;background:#fff;color:var(--ink)}
+.req-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px}
+.req{border:1px solid var(--line);border-radius:6px;padding:18px 20px;display:grid;gap:10px;min-width:0;background:var(--ground)}
+.req-top{display:flex;justify-content:space-between;align-items:start;gap:12px}
+.req-name{font-family:var(--font-display);font-weight:700;font-size:24px;line-height:1.1}
+.req-date{font-size:13px;color:var(--ink-2);white-space:nowrap;font-variant-numeric:tabular-nums}
+.req dl{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 14px;font-size:15px}
+.req dt{color:var(--ink-2);font-weight:500}
+.req dd{min-width:0;overflow-wrap:anywhere}
+.req-details{font-size:15px;color:var(--ink-2);white-space:pre-wrap;overflow-wrap:anywhere;border-top:1px solid var(--line);padding-top:10px}
+.req-status{display:flex;align-items:center;gap:10px;border-top:1px solid var(--line);padding-top:12px}
+.req-status select{min-height:40px;padding:6px 10px;font:inherit;font-size:15px;border:1px solid var(--line);border-radius:4px;background:#fff;color:var(--ink)}
+.pill{display:inline-flex;align-items:center;font-family:var(--font-display);font-weight:600;font-size:13px;letter-spacing:.08em;text-transform:uppercase;padding:3px 9px;border-radius:3px;border:1px solid var(--line);color:var(--ink-2);background:#fff}
+.pill-new{border-color:var(--brick);color:var(--brick)}
+.pill-quoted{border-color:var(--ok);color:var(--ok)}
+.req-empty{color:var(--ink-2);padding:28px;border:1px dashed var(--line);border-radius:6px;text-align:center}
+
+/* footer */
+.footer{background:var(--ground);border-top:1px solid var(--line);padding-block:30px}
+.footer-grid{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:14px 32px;font-size:14px;color:var(--ink-2)}
+.footer-brand{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-weight:700;font-size:20px;color:var(--ink)}
+.footer-brand svg{width:28px;height:28px}
+.footer-links{display:flex;flex-wrap:wrap;gap:6px 18px;list-style:none;padding:0}
+.footer-links a{color:var(--ink-2);text-decoration:none}
+.footer-links a:hover{color:var(--brick)}
+
+/* mobile sticky call-to-action */
+.mobile-cta{display:none}
+@media (max-width:980px){
+  .mobile-cta{display:block;position:fixed;left:0;right:0;bottom:0;z-index:25;background:var(--ground);border-top:1px solid var(--line);padding:10px max(16px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+  .mobile-cta .btn{width:100%}
+  body{padding-bottom:76px}
+  .footer{padding-bottom:40px}
+}
+@media (max-width:640px){.section{padding-block:56px}.section-head{margin-bottom:32px}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;overflow:hidden">
+  <defs>
+    <pattern id="p-run" width="26" height="24" patternUnits="userSpaceOnUse"><rect width="26" height="24" fill="#CFC7BC"/><g fill="#9B3B2E"><rect x="1" y="1" width="24" height="10"/><rect x="-12" y="13" width="24" height="10"/><rect x="14" y="13" width="24" height="10"/></g></pattern>
+    <pattern id="p-stack" width="26" height="12" patternUnits="userSpaceOnUse"><rect width="26" height="12" fill="#CFC7BC"/><rect x="1" y="1" width="24" height="10" fill="#9B3B2E"/></pattern>
+    <pattern id="p-flemish" width="39" height="24" patternUnits="userSpaceOnUse"><rect width="39" height="24" fill="#CFC7BC"/><g fill="#9B3B2E"><rect x="1" y="1" width="24" height="10"/><rect x="27" y="1" width="11" height="10" fill="#7C2E23"/><rect x="20.5" y="13" width="24" height="10"/><rect x="-18.5" y="13" width="24" height="10"/><rect x="7.5" y="13" width="11" height="10" fill="#7C2E23"/></g></pattern>
+    <pattern id="p-english" width="26" height="24" patternUnits="userSpaceOnUse"><rect width="26" height="24" fill="#CFC7BC"/><g fill="#9B3B2E"><rect x="1" y="1" width="24" height="10"/><rect x="7.5" y="13" width="11" height="10" fill="#7C2E23"/><rect x="20.5" y="13" width="11" height="10" fill="#7C2E23"/><rect x="-5.5" y="13" width="11" height="10" fill="#7C2E23"/></g></pattern>
+    <pattern id="p-herring" width="40" height="40" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="40" height="40" fill="#CFC7BC"/><g fill="#9B3B2E" stroke="#CFC7BC" stroke-width="1.5"><rect x="0" y="0" width="20" height="10"/><rect x="10" y="10" width="10" height="20"/><rect x="10" y="30" width="20" height="10"/><rect x="20" y="0" width="10" height="20"/><rect x="20" y="20" width="20" height="10"/><rect x="30" y="30" width="10" height="20"/><rect x="30" y="-10" width="10" height="20"/><rect x="30" y="10" width="20" height="10"/><rect x="-10" y="10" width="20" height="10"/><rect x="0" y="20" width="10" height="20"/></g></pattern>
+    <pattern id="p-basket" width="40" height="40" patternUnits="userSpaceOnUse"><rect width="40" height="40" fill="#CFC7BC"/><g fill="#9B3B2E" stroke="#CFC7BC" stroke-width="1.5"><rect x="0" y="0" width="20" height="10"/><rect x="0" y="10" width="20" height="10"/><rect x="20" y="0" width="10" height="20"/><rect x="30" y="0" width="10" height="20"/><rect x="0" y="20" width="10" height="20"/><rect x="10" y="20" width="10" height="20"/><rect x="20" y="20" width="20" height="10"/><rect x="20" y="30" width="20" height="10"/></g></pattern>
+    <pattern id="p-block" width="48" height="48" patternUnits="userSpaceOnUse"><rect width="48" height="48" fill="#CFC7BC"/><g fill="#9A948C"><rect x="1" y="1" width="46" height="22"/><rect x="-23" y="25" width="46" height="22"/><rect x="25" y="25" width="46" height="22"/></g></pattern>
+    <pattern id="p-gravel" width="14" height="14" patternUnits="userSpaceOnUse"><rect width="14" height="14" fill="#D3CEC6"/><circle cx="4" cy="4" r="2.6" fill="#B9B3AA"/><circle cx="11" cy="9" r="2.2" fill="#A8A39B"/><circle cx="6" cy="11" r="1.6" fill="#C9C4BC"/></pattern>
+    <pattern id="p-cut" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" fill="#9B3B2E" fill-opacity=".14"/><rect width="2.5" height="8" fill="#9B3B2E" fill-opacity=".5"/></pattern>
+    <pattern id="p-lift" width="8" height="10" patternUnits="userSpaceOnUse"><rect width="8" height="10" fill="#D9C3A5"/><rect width="8" height="1.5" fill="#B98B6A"/></pattern>
+    <pattern id="p-mulch" width="12" height="8" patternUnits="userSpaceOnUse"><rect width="12" height="8" fill="#8A6246"/><rect x="1" y="2" width="4" height="2" fill="#C9A27E"/><rect x="7" y="5" width="3" height="2" fill="#B98B6A"/></pattern>
+    <pattern id="p-base" width="10" height="10" patternUnits="userSpaceOnUse"><rect width="10" height="10" fill="#B9B3AA"/><circle cx="3" cy="3" r="1.8" fill="#A8A39B"/><circle cx="8" cy="7" r="1.5" fill="#C9C4BC"/></pattern>
+  </defs>
+  <symbol id="s-exc" viewBox="0 0 420 230"><rect x="10" y="182" width="230" height="40" rx="20" fill="#1E1A18"/><rect x="30" y="126" width="180" height="60" rx="6" fill="#D9A21B"/><rect x="14" y="134" width="30" height="44" rx="3" fill="#B98712"/><rect x="140" y="74" width="66" height="58" rx="4" fill="#C38F14"/><rect x="150" y="84" width="44" height="32" rx="2" fill="#2B3540"/><path d="M196 140 320 22l16 14L212 156z" fill="#D9A21B"/><path d="M320 22l74 96-14 11-74-92z" fill="#C38F14"/><path d="M378 116l38 10-12 50q-24 8-38-14z" fill="#8E6A12"/><path d="M232 128 300 60" stroke="#1E1A18" stroke-width="7" stroke-linecap="round"/></symbol>
+  <symbol id="s-grapple" viewBox="0 0 420 230"><rect x="10" y="182" width="230" height="40" rx="20" fill="#1E1A18"/><rect x="30" y="126" width="180" height="60" rx="6" fill="#D9A21B"/><rect x="14" y="134" width="30" height="44" rx="3" fill="#B98712"/><rect x="140" y="74" width="66" height="58" rx="4" fill="#C38F14"/><rect x="150" y="84" width="44" height="32" rx="2" fill="#2B3540"/><path d="M196 140 320 22l16 14L212 156z" fill="#D9A21B"/><path d="M320 22l74 96-14 11-74-92z" fill="#C38F14"/><rect x="368" y="146" width="60" height="12" rx="6" fill="#5B4232" transform="rotate(-18 398 152)"/><path d="M384 118q36 10 24 52" fill="none" stroke="#8E6A12" stroke-width="9" stroke-linecap="round"/><path d="M384 118q-8 34 20 52" fill="none" stroke="#8E6A12" stroke-width="9" stroke-linecap="round"/><path d="M232 128 300 60" stroke="#1E1A18" stroke-width="7" stroke-linecap="round"/></symbol>
+  <symbol id="s-doz" viewBox="0 0 260 150"><path d="M8 62h22l9 78H2z" fill="#B98712"/><path d="M30 92h30" stroke="#8E6A12" stroke-width="8"/><rect x="40" y="110" width="200" height="34" rx="17" fill="#1E1A18"/><rect x="58" y="62" width="160" height="52" rx="5" fill="#D9A21B"/><rect x="120" y="14" width="74" height="52" rx="4" fill="#C38F14"/><rect x="130" y="23" width="54" height="30" rx="2" fill="#2B3540"/><path d="M200 62V38h10v24" fill="#1E1A18"/></symbol>
+  <symbol id="s-mul" viewBox="0 0 300 160"><rect x="92" y="118" width="196" height="36" rx="18" fill="#1E1A18"/><rect x="110" y="70" width="156" height="52" rx="5" fill="#D9A21B"/><rect x="156" y="24" width="92" height="52" rx="4" fill="#C38F14"/><rect x="166" y="32" width="70" height="32" rx="2" fill="#2B3540"/><path d="M112 84 68 72 44 104 92 116z" fill="#B98712"/><rect x="6" y="76" width="64" height="48" rx="6" fill="#8E6A12"/><circle cx="40" cy="128" r="26" fill="#1E1A18"/><g fill="#CFC7BC"><circle cx="40" cy="106" r="3"/><circle cx="59" cy="117" r="3"/><circle cx="59" cy="139" r="3"/><circle cx="40" cy="150" r="3"/><circle cx="21" cy="139" r="3"/><circle cx="21" cy="117" r="3"/></g></symbol>
+  <symbol id="s-grd" viewBox="0 0 220 140"><rect x="70" y="104" width="130" height="28" rx="14" fill="#1E1A18"/><rect x="84" y="62" width="110" height="46" rx="5" fill="#D9A21B"/><rect x="150" y="36" width="36" height="28" rx="3" fill="#C38F14"/><path d="M84 78 36 66" stroke="#B98712" stroke-width="10" stroke-linecap="round"/><circle cx="26" cy="88" r="22" fill="#1E1A18"/><circle cx="26" cy="88" r="8" fill="#CFC7BC"/><path d="M194 70h20v-30" stroke="#1E1A18" stroke-width="6" fill="none"/></symbol>
+  <symbol id="s-trk" viewBox="0 0 320 160"><path d="M100 46h200l10 74H100z" fill="#C38F14"/><path d="M110 56h180l6 54H110z" fill="#8E6A12"/><path d="M120 60q40-30 80-10t70 6v24H120z" fill="#8A6246"/><rect x="22" y="58" width="76" height="62" rx="6" fill="#D9A21B"/><rect x="30" y="66" width="40" height="28" rx="2" fill="#2B3540"/><rect x="14" y="110" width="296" height="16" rx="4" fill="#1E1A18"/><g fill="#1E1A18"><circle cx="58" cy="130" r="20"/><circle cx="160" cy="130" r="20"/><circle cx="230" cy="130" r="20"/></g><g fill="#5B544E"><circle cx="58" cy="130" r="8"/><circle cx="160" cy="130" r="8"/><circle cx="230" cy="130" r="8"/></g></symbol>
+  <symbol id="s-rol" viewBox="0 0 240 140"><rect x="70" y="60" width="130" height="44" rx="6" fill="#D9A21B"/><rect x="120" y="24" width="60" height="40" rx="3" fill="#C38F14"/><rect x="128" y="30" width="44" height="26" rx="2" fill="#2B3540"/><path d="M70 80 40 70" stroke="#B98712" stroke-width="10" stroke-linecap="round"/><circle cx="48" cy="98" r="34" fill="#6B6560"/><circle cx="48" cy="98" r="22" fill="#8F8A84"/><circle cx="48" cy="98" r="6" fill="#1E1A18"/><circle cx="190" cy="106" r="28" fill="#1E1A18"/><circle cx="190" cy="106" r="10" fill="#5B544E"/></symbol>
+  <symbol id="s-pine" viewBox="0 0 80 140"><rect x="35" y="104" width="10" height="36" fill="#5B4232"/><path d="M40 0 70 52H10z" fill="#3F6B45"/><path d="M40 28 76 84H4z" fill="#2F5236"/><path d="M40 60 80 112H0z" fill="#3F6B45"/></symbol>
+  <symbol id="s-oak" viewBox="0 0 120 150"><rect x="53" y="92" width="14" height="58" fill="#5B4232"/><circle cx="60" cy="58" r="44" fill="#5E7D3A"/><circle cx="32" cy="74" r="28" fill="#7A9A4F"/><circle cx="90" cy="72" r="28" fill="#7A9A4F"/><circle cx="60" cy="32" r="28" fill="#7A9A4F"/></symbol>
+  <symbol id="s-stump" viewBox="0 0 60 40"><path d="M8 14h44v18q-22 8-44 0z" fill="#6B4A33"/><ellipse cx="30" cy="14" rx="22" ry="8" fill="#C9A27E"/><ellipse cx="30" cy="14" rx="12" ry="4" fill="none" stroke="#B98B6A" stroke-width="2"/></symbol>
+  <symbol id="s-stake" viewBox="0 0 24 80"><rect x="10" y="12" width="4" height="68" fill="#C9C4BC"/><path d="M12 10l11-6-11-4z" fill="#E05A9A"/></symbol>
+  <symbol id="s-fence" viewBox="0 0 200 50"><rect x="12" y="10" width="178" height="30" fill="#1E1A18" fill-opacity=".8"/><g fill="#5B4232"><rect x="8" width="5" height="50"/><rect x="68" width="5" height="50"/><rect x="128" width="5" height="50"/><rect x="188" width="5" height="50"/></g></symbol>
+  <symbol id="s-tripod" viewBox="0 0 60 100"><path d="M30 22 8 100M30 22l22 78M30 22v76" stroke="#5B544E" stroke-width="4" stroke-linecap="round"/><rect x="18" y="6" width="24" height="16" rx="2" fill="#D9A21B"/><circle cx="30" cy="14" r="4" fill="#2B3540"/></symbol>
+  <symbol id="i-wall" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M3 5h18v14H3z"/><path d="M3 10h18M3 14.5h18M8 5v5M15 5v5M5.5 10v4.5M12 10v4.5M18.5 10v4.5M8 14.5V19M15 14.5V19"/></symbol>
+  <symbol id="i-footing" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M9 4h6v10H9z"/><path d="M4 14h16v6H4z"/><path d="M9 8h6M9 11h6"/></symbol>
+  <symbol id="i-retain" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M3 20h18"/><path d="M4 20V9h7v11"/><path d="M4 13h7M4 17h7"/><path d="M11 12c3-1 6-1 9-1v9"/></symbol>
+  <symbol id="i-steps" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M3 20h4v-4h4v-4h4V8h4V4"/><path d="M3 20V16h4M7 16v-4h4M11 12V8h4M15 8V4h4"/></symbol>
+  <symbol id="i-patio" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M3 6h18v12H3z"/><path d="M3 12h18M9 6v6M15 12v6M12 6v6M6 12v6M18 12v6"/></symbol>
+  <symbol id="i-chimney" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M3 12 12 4l9 8"/><path d="M5 10.5V20h14v-9.5"/><path d="M15 4h3v5"/><path d="M14 3h5"/></symbol>
+  <symbol id="i-veneer" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 4h10v16H4z"/><path d="M4 9h10M4 14h10M9 4v5M9 14v6"/><path d="M14 6h6v12h-6"/><path d="M17 6v12"/></symbol>
+  <symbol id="i-repair" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"><path d="M14.7 6.3a4 4 0 0 0-5.2 5.2L3 18l3 3 6.5-6.5a4 4 0 0 0 5.2-5.2l-2.6 2.6-2.2-2.2z"/></symbol>
+  <symbol id="i-lot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M3 5h18v14H3z" stroke-dasharray="3 2"/><path d="M8 19V9l4-3 4 3v10"/><path d="M10 19v-4h4v4"/></symbol>
+  <symbol id="i-acres" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M3 18c4-2 6-6 9-6s5 4 9 2"/><path d="M3 13c4-2 6-5 9-5s5 3 9 1"/><path d="M3 21h18"/></symbol>
+  <symbol id="i-tree" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3 7 10h3l-4 6h5v5h2v-5h5l-4-6h3z"/></symbol>
+  <symbol id="i-stump" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><ellipse cx="12" cy="8" rx="7" ry="3"/><path d="M5 8v8c0 1.7 3.1 3 7 3s7-1.3 7-3V8"/><ellipse cx="12" cy="8" rx="3" ry="1.2"/></symbol>
+  <symbol id="i-mulch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 16c2-4 5-6 10-6-1 4-4 7-10 6z"/><path d="M4 16l6-4"/><path d="M13 6c3 0 6 1 7 4-3 1-6 0-7-4z"/><path d="M3 21h18"/></symbol>
+  <symbol id="i-fence" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M5 20V8l2-3 2 3v12M15 20V8l2-3 2 3v12"/><path d="M3 11h18M3 16h18"/></symbol>
+  <symbol id="i-truck" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M2 7h11v9H2z"/><path d="M13 10h4l3 3v3h-7"/><circle cx="6" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></symbol>
+  <symbol id="i-pad" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M3 14 9 9h12l-6 5z"/><path d="M3 14v4l6 2v-6"/><path d="M15 14v6l6-2v-4"/></symbol>
+  <symbol id="i-drive" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 20 10 4M17 20 14 4"/><path d="M12 7v2M12 12v2M12 17v2"/><path d="M3 20h18"/></symbol>
+  <symbol id="i-level" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M2 9h20v6H2z"/><path d="M9 11h6v2H9z"/><path d="M12 11v2"/></symbol>
+  <symbol id="i-drop" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3s6 7 6 11a6 6 0 0 1-12 0c0-4 6-11 6-11z"/></symbol>
+  <symbol id="i-cutfill" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18"/><path d="M7 16V5M4 8l3-3 3 3"/><path d="M17 5v11M14 13l3 3 3-3"/></symbol>
+  <symbol id="i-compact" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><circle cx="8" cy="15" r="5"/><path d="M13 15h4a3 3 0 0 0 3-3V9h-7"/><path d="M13 9V6h4"/></symbol>
+  <symbol id="i-seed" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21v-8"/><path d="M12 13c0-4 3-6 7-6 0 4-3 6-7 6z"/><path d="M12 13c0-3-2-5-6-5 0 3 2 5 6 5z"/><path d="M4 21h16"/></symbol>
+  <symbol id="i-backfill" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M3 20h18"/><path d="M5 20v-8h6v8"/><path d="M11 14c3-2 6-2 10-1v7"/><path d="M5 12 8 6l3 6"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-6.1 7-12a7 7 0 0 0-14 0c0 5.9 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></symbol>
+  <symbol id="i-crew" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17h18"/><path d="M6 17v-4a6 6 0 0 1 12 0v4"/><path d="M12 7V4"/><path d="M10 4h4"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6.2 6.2l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.5 2.7.7a2 2 0 0 1 1.7 2z"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+</svg>
+
+<header class="site-header">
+  <div class="wrap">
+    <nav class="nav" aria-label="Main">
+      <a class="brand" href="#top">
+        <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="4" fill="#9B3B2E"/><g fill="#F4F2EE"><rect x="6" y="8" width="13" height="6"/><rect x="21" y="8" width="13" height="6"/><rect x="6" y="17" width="6" height="6"/><rect x="14" y="17" width="13" height="6"/><rect x="29" y="17" width="5" height="6"/><rect x="6" y="26" width="13" height="6"/><rect x="21" y="26" width="13" height="6"/></g></svg>
+        <span class="brand-name">C&amp;W Masonry, LLC</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#top" data-view="home">Home</a></li>
+        <li><a href="#masonry" data-view="masonry">Masonry</a></li>
+        <li><a href="#clearing" data-view="clearing">Land Clearing</a></li>
+        <li><a href="#grading" data-view="grading">Grading</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li id="admin-nav" hidden><a class="admin-link" href="#requests">Requests <span class="badge" id="req-count">0</span></a></li>
+      </ul>
+      <div class="nav-cta">
+        <a class="btn btn-primary" href="#contact">Get a Free Estimate</a>
+        <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </nav>
+  </div>
+  <div id="mobile-menu" class="mobile-menu" hidden>
+    <div class="wrap mobile-menu-inner">
+      <a href="#top" data-view="home">Home</a>
+      <a href="#masonry" data-view="masonry">Masonry</a>
+      <a href="#clearing" data-view="clearing">Land Clearing</a>
+      <a href="#grading" data-view="grading">Grading</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+      <a id="admin-nav-m" class="admin-link" href="#requests" hidden>Requests <span class="badge" id="req-count-m">0</span></a>
+      <a class="btn btn-primary" href="#contact">Get a Free Estimate</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ======================= HOME ======================= -->
+<div class="view" id="view-home">
+  <section class="scene" id="scene" aria-labelledby="scene-title">
+    <div class="layer l-sky" data-speed="0.75"><div class="sun"></div></div>
+    <div class="layer" data-speed="0.55" aria-hidden="true">
+      <svg viewBox="0 0 1440 800" preserveAspectRatio="xMidYMax slice"><path id="pines-far" fill="#5E4A4C" opacity=".75" d="M0 800V600H1440V800Z"/></svg>
+    </div>
+    <div class="layer" data-speed="0.42" aria-hidden="true">
+      <svg viewBox="0 0 1440 800" preserveAspectRatio="xMidYMax slice"><path id="pines-near" fill="#3A302F" d="M0 800V640H1440V800Z"/></svg>
+    </div>
+    <div class="layer l-title" data-speed="0.6" id="scene-title-layer">
+      <p class="eyebrow">Masonry · Land Clearing · Grading</p>
+      <h1 id="scene-title" tabindex="-1">From cleared lot<br>to finished wall.</h1>
+    </div>
+    <div class="layer" data-speed="0.24" aria-hidden="true">
+      <svg viewBox="0 0 1440 800" preserveAspectRatio="xMidYMax slice"><path fill="#6B3B2A" d="M0 690Q220 610 470 655T930 630T1440 650V800H0Z"/><path fill="#5A3123" d="M0 720Q300 668 620 700T1440 690V800H0Z"/></svg>
+    </div>
+    <div class="layer l-machines" data-speed="0.24" aria-hidden="true">
+      <svg class="mach mach-left" viewBox="0 0 260 150"><path d="M8 62h22l9 78H2z" fill="#B98712"/><path d="M30 92h30" stroke="#8E6A12" stroke-width="8"/><rect x="40" y="110" width="200" height="34" rx="17" fill="#1E1A18"/><rect x="58" y="62" width="160" height="52" rx="5" fill="#D9A21B"/><rect x="120" y="14" width="74" height="52" rx="4" fill="#C38F14"/><rect x="130" y="23" width="54" height="30" rx="2" fill="#2B3540"/><path d="M200 62V38h10v24" fill="#1E1A18"/></svg>
+      <svg class="mach mach-right" viewBox="0 0 420 230"><rect x="10" y="182" width="230" height="40" rx="20" fill="#1E1A18"/><rect x="30" y="126" width="180" height="60" rx="6" fill="#D9A21B"/><rect x="14" y="134" width="30" height="44" rx="3" fill="#B98712"/><rect x="140" y="74" width="66" height="58" rx="4" fill="#C38F14"/><rect x="150" y="84" width="44" height="32" rx="2" fill="#2B3540"/><path d="M196 140 320 22l16 14L212 156z" fill="#D9A21B"/><path d="M320 22l74 96-14 11-74-92z" fill="#C38F14"/><path d="M378 116l38 10-12 50q-24 8-38-14z" fill="#8E6A12"/><path d="M232 128 300 60" stroke="#1E1A18" stroke-width="7" stroke-linecap="round"/></svg>
+    </div>
+    <div class="layer" data-speed="0" aria-hidden="true">
+      <svg viewBox="0 0 1440 800" preserveAspectRatio="xMidYMax slice">
+        <defs><pattern id="brk" width="64" height="28" patternUnits="userSpaceOnUse"><rect width="64" height="28" fill="#CFC7BC"/><rect x="1" y="1" width="30" height="12" fill="#8E3527"/><rect x="33" y="1" width="30" height="12" fill="#9B3B2E"/><rect x="-15" y="15" width="30" height="12" fill="#A4442F"/><rect x="17" y="15" width="30" height="12" fill="#8A3326"/><rect x="49" y="15" width="30" height="12" fill="#8E3527"/></pattern></defs>
+        <path fill="url(#brk)" d="M0 716H384V688H640V716H896V744H1088V716H1440V800H0Z"/>
+        <path fill="#2A2725" d="M0 786H1440V800H0Z"/>
+      </svg>
+    </div>
+    <a class="scroll-cue" href="#hero-foot">Scroll<svg aria-hidden="true"><use href="#i-chev"/></svg></a>
+  </section>
+
+  <section class="hero on-dark" id="hero-foot">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow eyebrow-dark">One crew · Three trades</p>
+        <h2 class="hero-h">Clear it. Grade it. Build on it.</h2>
+        <p class="hero-lede">C&amp;W Masonry, LLC clears the land, grades it right, and builds the brick, block, and stone that goes on top of it. One crew and one point of contact, from the first site visit to the final walkthrough.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#contact">Request a Free Estimate</a>
+          <a class="btn btn-outline" href="#services">See Our Services</a>
+        </div>
+      </div>
+      <figure class="hero-photo">
+        <img src="img/hero.jpg" width="745" height="559" alt="Land clearing, grading, and bricklaying under way on one job site" fetchpriority="high">
+        <figcaption>Clearing, grading, and masonry on one site</figcaption>
+      </figure>
+    </div>
+  </section>
+  <div class="joint" aria-hidden="true"></div>
+
+  <section class="facts" aria-label="At a glance">
+    <div class="wrap facts-grid">
+      <div class="fact"><svg aria-hidden="true"><use href="#i-check"/></svg><span>Free on-site estimates</span></div>
+      <div class="fact"><svg aria-hidden="true"><use href="#i-crew"/></svg><span>Site prep and masonry from one crew</span></div>
+      <div class="fact"><svg aria-hidden="true"><use href="#i-pin"/></svg><span>Serving <mark class="ph">[Your service area]</mark></span></div>
+    </div>
+  </section>
+
+  <section class="section" id="services">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">What we do</p>
+        <h2>Three trades. One contractor.</h2>
+        <p class="lede">Most jobs that start with clearing a lot end with something built on it. We handle the ground work and the masonry, so you are not lining up three crews and hoping their schedules meet.</p>
+      </div>
+      <div class="services-grid">
+        <article class="service">
+          <div class="service-photo"><img class="pos-top" src="img/masonry.jpg" width="640" height="480" alt="A mason setting a brick on a wall with mortar on the trowel" loading="lazy"></div>
+          <div class="service-body">
+            <h3>Masonry</h3>
+            <p>Brick, block, and stone built to last. Foundations and footings, retaining walls, steps and walkways, patios, chimneys, and veneer, plus repairs and tuckpointing on older work.</p>
+            <ul class="tags"><li>Brick</li><li>Block</li><li>Stone</li><li>Repairs</li></ul>
+            <a class="service-link" href="#masonry">Masonry services →</a>
+          </div>
+        </article>
+        <article class="service">
+          <div class="service-photo"><img src="img/clearing.jpg" width="387" height="258" alt="An excavator with a grapple, a dozer, and a forestry mulcher clearing a wooded lot" loading="lazy"></div>
+          <div class="service-body">
+            <h3>Land Clearing</h3>
+            <p>Lots and acreage cleared and ready to build. Tree and brush removal, stump removal, forestry mulching, and debris haul-off, with a clean site left behind.</p>
+            <ul class="tags"><li>Lot clearing</li><li>Stumps</li><li>Mulching</li><li>Haul-off</li></ul>
+            <a class="service-link" href="#clearing">Land clearing services →</a>
+          </div>
+        </article>
+        <article class="service">
+          <div class="service-photo"><img src="img/grading.jpg" width="925" height="559" alt="An excavator shaping a dirt pad on a grading site" loading="lazy"></div>
+          <div class="service-body">
+            <h3>Grading</h3>
+            <p>Ground shaped for drainage and a solid build. Rough and finish grading, site leveling, cut and fill, driveway and building-pad prep, and backfill.</p>
+            <ul class="tags"><li>Finish grade</li><li>Drainage</li><li>Pad prep</li><li>Driveways</li></ul>
+            <a class="service-link" href="#grading">Grading services →</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section band-white" id="process">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">How a project goes</p>
+        <h2>From the first site visit to the last brick.</h2>
+        <p class="lede">Every service has its own step-by-step page. This is the shape of a job that uses all three.</p>
+      </div>
+      <ol class="steps">
+        <li class="step"><span class="step-num">1</span><h3>Site visit and estimate</h3><p>We walk the property with you, talk through what you want built, and follow up with a written estimate. No obligation.</p></li>
+        <li class="step"><span class="step-num">2</span><h3>Clearing and grading</h3><p>Trees, brush, and stumps come out. The site is cut, filled, and graded so water runs away from the build, not toward it.</p></li>
+        <li class="step"><span class="step-num">3</span><h3>Masonry</h3><p>Footings go in, then the brick, block, or stone, laid level and plumb to the plans.</p></li>
+        <li class="step"><span class="step-num">4</span><h3>Clean-up and walkthrough</h3><p>Debris is hauled off, the site is left clean, and we walk the finished work with you before we call it done.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" id="about">
+    <div class="wrap about-grid">
+      <div class="about-text">
+        <p class="eyebrow">About</p>
+        <h2>C&amp;W Masonry, LLC</h2>
+        <p>C&amp;W Masonry, LLC is a <mark class="ph">[City, State]</mark> contractor offering masonry, land clearing, and grading under one roof. Whether you need an acre cleared and leveled for a new build or a brick wall that will stand for decades, the same crew handles it start to finish.</p>
+        <p>Hiring one contractor for the site work and the masonry means one schedule, one estimate, and one crew responsible for how the ground and the wall meet.</p>
+      </div>
+      <aside class="glance" aria-label="Company details">
+        <h3>At a glance</h3>
+        <dl>
+          <dt>Services</dt><dd>Masonry, land clearing, grading</dd>
+          <dt>Service area</dt><dd><mark class="ph">[Counties or cities you serve]</mark></dd>
+          <dt>Established</dt><dd><mark class="ph">[Year]</mark></dd>
+          <dt>License</dt><dd><mark class="ph">[License number]</mark></dd>
+          <dt>Insurance</dt><dd><mark class="ph">[Insurance details]</mark></dd>
+        </dl>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section band-white faq" id="faq">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Questions</p>
+        <h2>Before you call.</h2>
+      </div>
+      <details class="acc" name="faq"><summary>Are estimates really free?<span class="chev" aria-hidden="true"><svg><use href="#i-chev"/></svg></span></summary><div class="acc-body"><p>Yes. We come out, walk the property with you, and follow up with a written estimate. There is no charge and no obligation.</p></div></details>
+      <details class="acc" name="faq"><summary>Can you clear and grade a lot and then build on it?<span class="chev" aria-hidden="true"><svg><use href="#i-chev"/></svg></span></summary><div class="acc-body"><p>That is the whole idea. We clear the land, grade it for drainage and a solid base, and build the footings, walls, steps, or patio on top of it, with one estimate and one schedule.</p></div></details>
+      <details class="acc" name="faq"><summary>Do you handle permits and utility locates?<span class="chev" aria-hidden="true"><svg><use href="#i-chev"/></svg></span></summary><div class="acc-body"><p>We call 811 before any digging so underground lines are marked, and we tell you up front which permits the job needs and what is required to get them.</p></div></details>
+      <details class="acc" name="faq"><summary>How soon can you start?<span class="chev" aria-hidden="true"><svg><use href="#i-chev"/></svg></span></summary><div class="acc-body"><p>It depends on the season and the size of the job. Your estimate will include a start window, and we will tell you if that changes.</p></div></details>
+      <details class="acc" name="faq"><summary>Are you licensed and insured?<span class="chev" aria-hidden="true"><svg><use href="#i-chev"/></svg></span></summary><div class="acc-body"><p>Yes. Our license and insurance details are listed in the <a href="#about">About</a> section, and we can provide certificates on request.</p></div></details>
+    </div>
+  </section>
+  <div class="joint" aria-hidden="true"></div>
+
+  <section class="section contact on-dark" id="contact">
+    <div class="wrap contact-grid">
+      <div class="contact-intro">
+        <p class="eyebrow eyebrow-dark">Contact</p>
+        <h2>Request a free estimate.</h2>
+        <p class="lede">Tell us about the property and what you want done. We will set up a site visit and follow up with a written estimate.</p>
+        <ul class="contact-list">
+          <li class="contact-item"><svg aria-hidden="true"><use href="#i-phone"/></svg><div><div class="contact-label">Phone</div><div class="contact-value"><mark class="ph">[Phone number]</mark></div></div></li>
+          <li class="contact-item"><svg aria-hidden="true"><use href="#i-mail"/></svg><div><div class="contact-label">Email</div><div class="contact-value"><mark class="ph">[Email address]</mark></div></div></li>
+          <li class="contact-item"><svg aria-hidden="true"><use href="#i-clock"/></svg><div><div class="contact-label">Hours</div><div class="contact-value"><mark class="ph">[Mon to Fri, 7 am to 5 pm]</mark></div></div></li>
+          <li class="contact-item"><svg aria-hidden="true"><use href="#i-pin"/></svg><div><div class="contact-label">Based in</div><div class="contact-value"><mark class="ph">[City, State]</mark></div></div></li>
+        </ul>
+      </div>
+      <form class="form" id="estimate-form" aria-label="Estimate request" novalidate>
+        <div class="form-row">
+          <div class="field"><label for="name">Name</label><input id="name" name="name" type="text" autocomplete="name" required></div>
+          <div class="field"><label for="phone">Phone</label><input id="phone" name="phone" type="tel" autocomplete="tel" required></div>
+        </div>
+        <div class="form-row">
+          <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email"></div>
+          <div class="field"><label for="contact-pref">Best way to reach you</label>
+            <select id="contact-pref" name="contactPref"><option>Call</option><option>Text</option><option>Email</option></select>
+          </div>
+        </div>
+        <div class="field"><label for="address">Property address or area</label><input id="address" name="address" type="text" autocomplete="street-address"></div>
+        <fieldset class="field" style="border:0;padding:0;margin:0;min-width:0">
+          <legend class="lbl" style="padding:0;margin-bottom:6px">Services needed</legend>
+          <div class="checks">
+            <label><input id="svc-masonry" type="checkbox" name="services" value="Masonry"> Masonry</label>
+            <label><input id="svc-clearing" type="checkbox" name="services" value="Land clearing"> Land clearing</label>
+            <label><input id="svc-grading" type="checkbox" name="services" value="Grading"> Grading</label>
+          </div>
+          <span class="hint" id="svc-hint">Pick everything that applies. Not sure? Leave it blank and describe the job below.</span>
+        </fieldset>
+        <div class="field"><label for="timeline">When do you want to start?</label>
+          <select id="timeline" name="timeline"><option>As soon as possible</option><option>Within a month</option><option>In 1 to 3 months</option><option>Just planning for now</option></select>
+        </div>
+        <div class="field"><label for="details">Project details</label><textarea id="details" name="details" placeholder="Size of the lot, what you want built, timing, anything else we should know."></textarea></div>
+        <div id="form-error" class="notice" hidden tabindex="-1" role="alert"></div>
+        <div id="form-saved" class="notice notice-ok" hidden tabindex="-1" role="status"><h4>Request received</h4><p id="saved-text"></p></div>
+        <div id="form-fallback" class="notice" hidden tabindex="-1" role="status">
+          <h4>Your request is ready to send</h4>
+          <p>This preview can't deliver it on its own yet. Copy it and text or email it to us, and we will set up the site visit.</p>
+          <pre id="summary-text"></pre>
+          <div class="notice-actions"><button class="btn btn-quiet" type="button" id="copy-btn">Copy request</button><span class="copied" id="copied-msg" hidden>Copied</span></div>
+          <p>Phone: <strong><mark class="ph">[Phone number]</mark></strong> · Email: <strong><mark class="ph">[Email address]</mark></strong></p>
+        </div>
+        <button class="btn btn-primary" type="submit" id="submit-btn">Request Estimate</button>
+        <p class="form-note">No obligation. We will follow up to set a time for the site visit.</p>
+      </form>
+    </div>
+  </section>
+
+  <section class="section requests" id="requests" hidden>
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Only you can see this</p>
+        <h2>Estimate requests</h2>
+        <p class="lede">Requests submitted through the form above. Change a status as you work through them.</p>
+      </div>
+      <div class="req-tools">
+        <div class="field"><label for="req-filter">Show</label>
+          <select id="req-filter"><option value="open">Open (new, contacted, quoted)</option><option value="new">New only</option><option value="all">All</option><option value="closed">Closed</option></select>
+        </div>
+        <span id="req-summary" class="form-note"></span>
+      </div>
+      <div class="req-grid" id="req-list"></div>
+      <div class="req-empty" id="req-empty" hidden>No requests yet. Submit the form above to see one here.</div>
+    </div>
+  </section>
+</div>
+
+<!-- ======================= MASONRY ======================= -->
+<div class="view" id="view-masonry" hidden>
+  <section class="svc-hero on-dark">
+    <div class="wrap">
+      <ol class="crumbs"><li><a href="#top">Home</a></li><li><a href="#services">Services</a></li><li>Masonry</li></ol>
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow eyebrow-dark">Masonry</p>
+          <h1 tabindex="-1">Brick, block, and stone built to last.</h1>
+          <p class="hero-lede">Foundations, retaining walls, steps, patios, chimneys, veneer, and repairs, laid level and plumb by the same crew that prepared the ground beneath them.</p>
+          <ul class="chips"><li>Brick</li><li>Block (CMU)</li><li>Natural and manufactured stone</li><li>Repairs and tuckpointing</li></ul>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#contact" data-service="svc-masonry">Request a Free Estimate</a>
+            <a class="btn btn-outline" href="#masonry-process">See the 14 Steps</a>
+          </div>
+        </div>
+        <figure class="hero-photo">
+          <img src="img/masonry.jpg" width="640" height="480" alt="A mason in a hard hat and safety glasses laying a brick with a trowel" loading="lazy">
+          <figcaption>Brickwork laid in running bond</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+  <div class="joint" aria-hidden="true"></div>
+
+  <section class="section" id="masonry-work">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">What we build</p>
+        <h2>Masonry services</h2>
+        <p class="lede">New construction and repairs for homes, additions, and outdoor spaces.</p>
+      </div>
+      <div class="offer-grid">
+        <div class="offer"><svg class="ic" aria-hidden="true"><use href="#i-footing"/></svg><h3>Foundations and footings</h3><p>Poured footings and block or brick foundation walls for additions, garages, porches, and outbuildings.</p></div>
+        <div class="offer"><svg class="ic" aria-hidden="true"><use href="#i-retain"/></svg><h3>Retaining walls</h3><p>Block and stone walls with a proper footing, gravel backfill, drainage, and reinforcement, so they hold for decades.</p></div>
+        <div class="offer"><svg class="ic" aria-hidden="true"><use href="#i-steps"/></svg><h3>Steps, stoops, and walkways</h3><p>Brick and stone steps, front stoops, and paths set on a compacted base so they stay level.</p></div>
+        <div class="offer"><svg class="ic" aria-hidden="true"><use href="#i-patio"/></svg><h3>Patios and outdoor living</h3><p>Brick and paver patios, seat walls, fire pits, and bases for outdoor kitchens.</p></div>
+        <div class="offer"><svg class="ic" aria-hidden="true"><use href="#i-chimney"/></svg><h3>Chimneys and fireplaces</h3><p>New chimneys, rebuilds above the roofline, crowns, caps, and firebox repairs.</p></div>
+        <div class="offer"><svg class="ic" aria-hidden="true"><use href="#i-veneer"/></svg><h3>Brick and stone veneer</h3><p>Veneer over framed walls and foundations, with the flashing, weep holes, and wall ties that keep water out.</p></div>
+        <div class="offer"><svg class="ic" aria-hidden="true"><use href="#i-repair"/></svg><h3>Repairs and tuckpointing</h3><p>Cracked or spalled units replaced, failing mortar raked out and repointed to match the original.</p></div>
+        <div class="offer"><svg class="ic" aria-hidden="true"><use href="#i-wall"/></svg><h3>Garden and privacy walls</h3><p>Freestanding brick and block walls, columns, and mailbox and sign bases.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section band-white" id="masonry-anatomy">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Built right</p>
+        <h2>Anatomy of a retaining wall</h2>
+        <p class="lede">Most of what makes a wall last is behind it and under it. This is what goes into every one we build.</p>
+      </div>
+      <div class="diagram">
+        <figure class="fig">
+          <div class="fig-scroll">
+            <svg viewBox="0 0 640 400" role="img" aria-label="Cross-section of a block retaining wall showing cap, wall, geogrid, gravel backfill, drain pipe, weep hole, and footing">
+              <rect width="640" height="400" fill="#F7F5F1"/>
+              <path d="M300 100H640V400H300z" fill="#B98B6A"/>
+              <path d="M0 300H240V400H0z" fill="#B98B6A"/>
+              <rect x="240" y="300" width="60" height="100" fill="#B98B6A"/>
+              <rect x="300" y="92" width="340" height="10" fill="#7A9A4F"/>
+              <rect x="0" y="292" width="240" height="10" fill="#7A9A4F"/>
+              <rect x="192" y="364" width="236" height="26" fill="url(#p-base)"/>
+              <rect x="204" y="330" width="212" height="34" fill="#C9C4BC" stroke="#A8A39B" stroke-width="2"/>
+              <g fill="#5B4232"><circle cx="236" cy="347" r="3.5"/><circle cx="310" cy="347" r="3.5"/><circle cx="384" cy="347" r="3.5"/></g>
+              <rect x="300" y="102" width="72" height="228" fill="url(#p-gravel)"/>
+              <path d="M372 102V330" stroke="#5B4232" stroke-width="2.5" stroke-dasharray="7 5"/>
+              <path d="M300 150H570M300 210H570M300 270H570" stroke="#9B3B2E" stroke-width="2.5" stroke-dasharray="10 6"/>
+              <circle cx="336" cy="312" r="13" fill="#F4F2EE" stroke="#1E1A18" stroke-width="3" stroke-dasharray="5 4"/>
+              <rect x="240" y="102" width="60" height="228" fill="url(#p-block)"/>
+              <rect x="236" y="306" width="68" height="7" rx="3" fill="#1E1A18"/>
+              <rect x="230" y="86" width="80" height="16" rx="2" fill="#3A3633"/>
+              <g fill="none" stroke="#6FA7C7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M336 150v30m-6-8 6 8 6-8"/><path d="M336 220v30m-6-8 6 8 6-8"/><path d="M226 309H200m8-6-8 6 8 6"/></g>
+              <text class="dg-t" x="470" y="78">Retained soil</text>
+              <text class="dg-t" x="40" y="282">Low side</text>
+              <text class="dg-n" x="628" y="384" text-anchor="end">Compacted base below frost depth</text>
+              <g stroke="#9B3B2E" stroke-width="1.5"><path d="M386 120H374"/><path d="M386 312h-37"/><path d="M456 347h-40"/></g>
+              <g class="callout" transform="translate(206 78)"><circle r="14"/><text>1</text></g>
+              <g class="callout" transform="translate(206 200)"><circle r="14"/><text>2</text></g>
+              <g class="callout" transform="translate(540 136)"><circle r="14"/><text>3</text></g>
+              <g class="callout" transform="translate(400 120)"><circle r="14"/><text>4</text></g>
+              <g class="callout" transform="translate(400 312)"><circle r="14"/><text>5</text></g>
+              <g class="callout" transform="translate(174 309)"><circle r="14"/><text>6</text></g>
+              <g class="callout" transform="translate(470 347)"><circle r="14"/><text>7</text></g>
+            </svg>
+          </div>
+          <figcaption class="fig-cap">Walls over about 4 feet, or walls holding up a driveway or structure, usually need an engineer's design and a permit. We tell you before we quote.</figcaption>
+        </figure>
+        <ol class="legend">
+          <li><div><strong>Cap or coping</strong><span>Sheds water off the top of the wall so it never soaks down through the courses.</span></div></li>
+          <li><div><strong>Block wall in running bond</strong><span>Cores reinforced with rebar and grout where the height calls for it.</span></div></li>
+          <li><div><strong>Geogrid</strong><span>Layers of mesh tied into the backfill that anchor the wall against soil pressure.</span></div></li>
+          <li><div><strong>Gravel backfill and filter fabric</strong><span>Water drains straight down instead of building up and pushing on the wall. The fabric keeps soil from clogging the gravel.</span></div></li>
+          <li><div><strong>Perforated drain pipe</strong><span>Collects water at the base and carries it to daylight.</span></div></li>
+          <li><div><strong>Weep holes</strong><span>Let water through the face so pressure never builds behind it.</span></div></li>
+          <li><div><strong>Footing on a compacted base</strong><span>Poured below frost depth, so the wall does not heave in winter.</span></div></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="section band-tint" id="masonry-details">
+    <div class="wrap detail-grid">
+      <div class="detail">
+        <h3>Bond patterns</h3>
+        <p>We work in clay brick, concrete block, and both natural and manufactured stone. The bond is how the units are arranged; it changes the look and, in a structural wall, the strength.</p>
+        <div class="swatches">
+          <div class="swatch"><svg viewBox="0 0 120 80" aria-hidden="true"><rect width="120" height="80" fill="url(#p-run)"/></svg><b>Running bond</b><small>Each course offset by half a brick. The standard for walls and the strongest common pattern.</small></div>
+          <div class="swatch"><svg viewBox="0 0 120 80" aria-hidden="true"><rect width="120" height="80" fill="url(#p-stack)"/></svg><b>Stack bond</b><small>Units aligned in straight columns for a modern look. Needs reinforcement in a load-bearing wall.</small></div>
+          <div class="swatch"><svg viewBox="0 0 120 80" aria-hidden="true"><rect width="120" height="80" fill="url(#p-flemish)"/></svg><b>Flemish bond</b><small>Headers and stretchers alternate in every course. Used for historic matches and thick walls.</small></div>
+          <div class="swatch"><svg viewBox="0 0 120 80" aria-hidden="true"><rect width="120" height="80" fill="url(#p-english)"/></svg><b>English bond</b><small>Alternating courses of stretchers and headers. The strongest traditional bond for solid walls.</small></div>
+          <div class="swatch"><svg viewBox="0 0 120 80" aria-hidden="true"><rect width="120" height="80" fill="url(#p-herring)"/></svg><b>Herringbone</b><small>Pavers set at 45 degrees. Locks together under traffic, so it suits driveways and patios.</small></div>
+          <div class="swatch"><svg viewBox="0 0 120 80" aria-hidden="true"><rect width="120" height="80" fill="url(#p-basket)"/></svg><b>Basketweave</b><small>Pairs of pavers alternating direction. A calmer paving pattern for patios and paths.</small></div>
+        </div>
+      </div>
+      <div class="detail">
+        <h3>Mortar, matched to the job</h3>
+        <p>Mortar is chosen by where the masonry sits and what it carries, not by habit. Using the wrong type is a common cause of early cracking.</p>
+        <ul>
+          <li><strong>Type N</strong> for most above-grade walls, veneer, and chimneys.</li>
+          <li><strong>Type S</strong> for below-grade work, foundations, and retaining walls that need higher strength.</li>
+          <li><strong>Type M</strong> for heavy loads and work in contact with the ground.</li>
+          <li><strong>Lime-based mortar</strong> for repointing older, softer brick, so the mortar wears before the brick does.</li>
+        </ul>
+        <h3>Joint profiles</h3>
+        <p>How the mortar is tooled once it firms up. Concave and V joints shed water best; raked joints suit sheltered walls and give a shadowed look.</p>
+        <div class="jprofs">
+          <div class="jprof"><svg viewBox="0 0 80 80" aria-hidden="true"><rect width="80" height="80" fill="#F7F5F1"/><rect width="64" height="30" fill="#9B3B2E"/><rect y="50" width="64" height="30" fill="#9B3B2E"/><path d="M0 30H64Q52 40 64 50H0z" fill="#CFC7BC"/></svg>Concave</div>
+          <div class="jprof"><svg viewBox="0 0 80 80" aria-hidden="true"><rect width="80" height="80" fill="#F7F5F1"/><rect width="64" height="30" fill="#9B3B2E"/><rect y="50" width="64" height="30" fill="#9B3B2E"/><path d="M0 30H64L54 40 64 50H0z" fill="#CFC7BC"/></svg>V joint</div>
+          <div class="jprof"><svg viewBox="0 0 80 80" aria-hidden="true"><rect width="80" height="80" fill="#F7F5F1"/><rect width="64" height="30" fill="#9B3B2E"/><rect y="50" width="64" height="30" fill="#9B3B2E"/><path d="M0 30H58V50H0z" fill="#CFC7BC"/></svg>Raked</div>
+          <div class="jprof"><svg viewBox="0 0 80 80" aria-hidden="true"><rect width="80" height="80" fill="#F7F5F1"/><rect width="64" height="30" fill="#9B3B2E"/><rect y="50" width="64" height="30" fill="#9B3B2E"/><path d="M0 30H64V50H0z" fill="#CFC7BC"/></svg>Flush</div>
+          <div class="jprof"><svg viewBox="0 0 80 80" aria-hidden="true"><rect width="80" height="80" fill="#F7F5F1"/><rect width="64" height="30" fill="#9B3B2E"/><rect y="50" width="64" height="30" fill="#9B3B2E"/><path d="M0 30H58L64 50H0z" fill="#CFC7BC"/></svg>Weathered</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section svc-process" id="masonry-process">
+    <div class="wrap">
+      <div class="section-head">
+        <div><p class="eyebrow">Step by step</p><h2>How a masonry job goes</h2></div>
+        <span class="meta">14 steps</span>
+      </div>
+      <div class="scenes">
+        <div class="scene-card">
+          <svg viewBox="0 0 360 200" role="img" aria-label="Footing trench with rebar and poured concrete, string lines set on batter boards">
+            <rect width="360" height="200" fill="#EAF0F4"/><rect y="120" width="360" height="80" fill="#B98B6A"/><rect y="114" width="360" height="8" fill="#7A9A4F"/>
+            <rect x="100" y="120" width="160" height="52" fill="#8A6246"/><rect x="104" y="146" width="152" height="24" fill="#C9C4BC"/><path d="M112 158h136" stroke="#5B4232" stroke-width="3"/>
+            <g fill="#5B4232"><rect x="130" y="124" width="4" height="34"/><rect x="178" y="124" width="4" height="34"/><rect x="226" y="124" width="4" height="34"/></g>
+            <g fill="#C9C4BC"><rect x="64" y="70" width="5" height="50"/><rect x="86" y="70" width="5" height="50"/><rect x="60" y="80" width="36" height="6"/><rect x="270" y="70" width="5" height="50"/><rect x="292" y="70" width="5" height="50"/><rect x="266" y="80" width="36" height="6"/></g>
+            <path d="M78 83H284" stroke="#E05A9A" stroke-width="2"/><path d="M280 120q36-34 72 0z" fill="#8A6246"/>
+          </svg>
+          <div class="scene-t">Footing first<small>Dug below frost depth, rebar set, concrete poured and left to cure before it carries a single brick.</small></div>
+        </div>
+        <div class="scene-card">
+          <svg viewBox="0 0 360 200" role="img" aria-label="First courses of brick laid between corner leads with a string line">
+            <rect width="360" height="200" fill="#EAF0F4"/><rect y="140" width="360" height="60" fill="#B98B6A"/><rect y="134" width="360" height="8" fill="#7A9A4F"/>
+            <rect x="88" y="128" width="184" height="12" fill="#C9C4BC"/><path d="M100 128V68h40v30h80V68h40v60z" fill="url(#p-run)"/><path d="M100 68H260" stroke="#E05A9A" stroke-width="2"/>
+            <g fill="#9B3B2E" stroke="#CFC7BC" stroke-width="1.5"><rect x="26" y="116" width="24" height="10"/><rect x="50" y="116" width="24" height="10"/><rect x="38" y="106" width="24" height="10"/></g>
+            <rect x="290" y="124" width="52" height="6" fill="#5B4232"/><ellipse cx="316" cy="122" rx="18" ry="6" fill="#CFC7BC"/><path d="M322 100l14 18h-14z" fill="#8F8A84"/><path d="M329 100v-10" stroke="#5B4232" stroke-width="3"/>
+          </svg>
+          <div class="scene-t">Corners, then courses<small>Leads go up at each end; a string line keeps every course between them level and straight.</small></div>
+        </div>
+        <div class="scene-card">
+          <svg viewBox="0 0 360 200" role="img" aria-label="Finished brick wall with cap, pilasters, and landscaping">
+            <rect width="360" height="200" fill="#EAF0F4"/><rect y="140" width="360" height="60" fill="#B98B6A"/><rect y="134" width="360" height="8" fill="#7A9A4F"/>
+            <rect x="84" y="50" width="18" height="90" fill="url(#p-run)"/><rect x="258" y="50" width="18" height="90" fill="url(#p-run)"/><rect x="80" y="42" width="26" height="10" fill="#3A3633"/><rect x="254" y="42" width="26" height="10" fill="#3A3633"/>
+            <rect x="102" y="64" width="156" height="76" fill="url(#p-run)"/><rect x="98" y="56" width="164" height="10" fill="#3A3633"/>
+            <g fill="#5E7D3A"><circle cx="40" cy="132" r="16"/><circle cx="62" cy="126" r="12"/><circle cx="310" cy="128" r="14"/><circle cx="332" cy="134" r="10"/></g>
+          </svg>
+          <div class="scene-t">Capped and cleaned<small>Caps on, joints tooled, face washed, debris hauled off, and the site left ready for planting.</small></div>
+        </div>
+      </div>
+      <ol class="steplist">
+        <li><div><h4>Consultation and site visit</h4><p>We look at the location, talk through the project, take measurements, and note access, soil, and any existing structures.</p></div></li>
+        <li><div><h4>Design and material selection</h4><p>Dimensions, layout, and style get settled. You choose brick, block, or stone, plus mortar color and bond pattern.</p></div></li>
+        <li><div><h4>Written estimate</h4><p>Materials, labor, equipment, timeline, and payment terms, itemized, with anything that could change the price called out.</p></div></li>
+        <li><div><h4>Permits and approvals</h4><p>Building permits where required, HOA rules checked, and 811 called to mark utilities before any digging.</p></div></li>
+        <li><div><h4>Site preparation</h4><p>The work area is cleared, materials are staged, and nearby landscaping, siding, and walkways are protected.</p></div></li>
+        <li><div><h4>Excavation and footings</h4><p>Dig below the frost line or to design depth, compact the base, set forms and rebar, pour the footing, and let it cure.</p></div></li>
+        <li><div><h4>Layout</h4><p>Chalk lines, corner leads, and string lines keep every course level, plumb, and square.</p></div></li>
+        <li><div><h4>Laying the units</h4><p>Corners first, then the courses between, with wall ties, rebar, and grout where the design calls for them.</p></div></li>
+        <li><div><h4>Drainage and reinforcement</h4><p>Retaining walls get gravel backfill, a perforated drain pipe, weep holes, and geogrid where needed so water never builds up behind them.</p></div></li>
+        <li><div><h4>Tooling the joints</h4><p>Once the mortar is thumbprint-hard, joints are tooled concave, V, or raked for a clean finish that sheds weather.</p></div></li>
+        <li><div><h4>Caps, flashing, and finishing</h4><p>Capstones or coping go on, flashing is set where masonry meets the house or roof, and the work is sealed if the material calls for it.</p></div></li>
+        <li><div><h4>Cleaning</h4><p>Excess mortar is brushed off, then the face is washed with an approved masonry cleaner once the mortar has cured enough.</p></div></li>
+        <li><div><h4>Curing</h4><p>Fresh work is protected from rain, freezing, and fast drying, covered or misted as the weather requires.</p></div></li>
+        <li><div><h4>Clean-up and final walkthrough</h4><p>Debris and leftover material are hauled off, the area is restored, and we walk the finished job with you and go over care and maintenance.</p></div></li>
+        <li class="sub"><strong>Repairs and tuckpointing</strong> follow a shorter path: inspect, grind or rake out the damaged mortar to a set depth, clean the joints, repoint with matching mortar, replace cracked units, tool, clean, and cure.</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section band-white faq" id="masonry-faq">
+    <div class="wrap">
+      <div class="section-head"><p class="eyebrow">Questions</p><h2>About masonry work</h2></div>
+      <details class="acc" name="mfaq"><summary>How long before I can use a new wall, patio, or steps?<span class="chev" aria-hidden="true"><svg><use href="#i-chev"/></svg></span></summary><div class="acc-body"><p>Mortar sets within a day but keeps gaining strength for about four weeks. Light use is fine after a few days; we will tell you when it is safe to load a retaining wall, put furniture on a patio, or backfill against new work.</p></div></details>
+      <details class="acc" name="mfaq"><summary>Can you match the existing brick on a repair or addition?<span class="chev" aria-hidden="true"><svg><use href="#i-chev"/></svg></span></summary><div class="acc-body"><p>Usually, yes. We match brick size, color range, and texture from samples, and we match the mortar color and joint profile, which is what most people notice. Older brick that is no longer made can often be sourced as salvage.</p></div></details>
+      <details class="acc" name="mfaq"><summary>Does a retaining wall need a permit?<span class="chev" aria-hidden="true"><svg><use href="#i-chev"/></svg></span></summary><div class="acc-body"><p>Often, once it passes a certain height (commonly around 4 feet) or supports a load such as a driveway. Rules vary by county and city. We check before quoting and tell you what applies to your wall.</p></div></details>
+      <details class="acc" name="mfaq"><summary>Why do some walls crack or bulge after a few years?<span class="chev" aria-hidden="true"><svg><use href="#i-chev"/></svg></span></summary><div class="acc-body"><p>Almost always water or a weak base: no drainage behind a retaining wall, a footing that was too shallow, or soil that was never compacted. That is why our process puts footings, drainage, and reinforcement ahead of the first course of brick.</p></div></details>
+    </div>
+  </section>
+
+  <section class="cta-band on-dark">
+    <div class="wrap cta-inner">
+      <div class="cta-copy"><h2>Ready to talk about your masonry project?</h2><p>Free site visit, written estimate, no obligation.</p></div>
+      <div class="cta-actions"><a class="btn btn-white" href="#contact" data-service="svc-masonry">Request a Free Estimate</a><a class="btn btn-ghost" href="#services">All Services</a></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head"><p class="eyebrow">Pairs with</p><h2>Get the ground right first.</h2></div>
+      <div class="pairs">
+        <a class="pair" href="#clearing"><img src="img/clearing-wide.jpg" width="745" height="559" alt="" loading="lazy"><div class="pair-body"><h3>Land Clearing</h3><p>Trees, brush, and stumps out before the footings go in.</p></div></a>
+        <a class="pair" href="#grading"><img src="img/grading.jpg" width="925" height="559" alt="" loading="lazy"><div class="pair-body"><h3>Grading</h3><p>A level, compacted, well-drained base under every wall and patio.</p></div></a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ======================= LAND CLEARING ======================= -->
+<div class="view" id="view-clearing" hidden>
+  <section class="svc-hero on-dark">
+    <div class="wrap">
+      <ol class="crumbs"><li><a href="#top">Home</a></li><li><a href="#services">Services</a></li><li>Land Clearing</li></ol>
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow eyebrow-dark">Land Clearing</p>
+          <h1 tabindex="-1">Lots and acreage cleared and ready to build.</h1>
+          <p class="hero-lede">Trees, brush, stumps, and debris removed with the right equipment for the site, the boundaries respected, and the ground left ready for grading.</p>
+          <ul class="chips"><li>Lot clearing</li><li>Forestry mulching</li><li>Stump removal</li><li>Debris haul-off</li></ul>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#contact" data-service="svc-clearing">Request a Free Estimate</a>
+            <a class="btn btn-outline" href="#clearing-process">See the 15 Steps</a>
+          </div>
+        </div>
+        <figure class="hero-photo">
+          <img src="img/clearing-wide.jpg" width="745" height="559" alt="A forestry mulcher, an excavator, and a grapple loader clearing a wooded lot" loading="lazy">
+          <figcaption>Mulcher, excavator, and grapple on a lot clearing</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+  <div class="joint" aria-hidden="true"></div>
+
+  <section class="section" id="clearing-work">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">What we clear</p>
+        <h2>Land clearing services</h2>
+        <p class="lede">From a single building lot to acreage, sized to the job and priced after a walk of the property.</p>
+      </div>
+      <div class="offer-grid">
+        <div class="offer"><svg class="ic" aria-hidden="true"><use href="#i-lot"/></svg><h3>Lot clearing for new construction</h3><p>House sites, garages, and outbuildings cleared to the limits of the plan, with the building pad left ready to grade.</p></div>
+        <div class="offer"><svg class="ic" aria-hidden="true"><use href="#i-acres"/></svg><h3>Acreage and pasture reclamation</h3><p>Overgrown fields, fence lines, and wood edges brought back to usable land.</p></div>
+        <div class="offer"><svg class="ic" aria-hidden="true"><use href="#i-tree"/></svg><h3>Tree and brush removal</h3><p>Selective or complete removal, with the trees you want kept flagged and protected.</p></div>
+        <div class="offer"><svg class="ic" aria-hidden="true"><use href="#i-stump"/></svg><h3>Stump grinding and removal</h3><p>Ground below grade for lawns, or pulled out entirely where a foundation, driveway, or septic field will go.</p></div>
+        <div class="offer"><svg class="ic" aria-hidden="true"><use href="#i-mulch"/></svg><h3>Forestry mulching</h3><p>Brush and small trees ground in place into a layer of mulch. No piles, no burning, no haul-off.</p></div>
+        <div class="offer"><svg class="ic" aria-hidden="true"><use href="#i-fence"/></svg><h3>Driveways, fence lines, and right-of-way</h3><p>Corridors cleared for a new driveway, utility run, or property-line fence.</p></div>
+        <div class="offer"><svg class="ic" aria-hidden="true"><use href="#i-truck"/></svg><h3>Debris haul-off and site cleanup</h3><p>Logs, brush, and buried debris loaded and hauled, or burned where permitted, leaving a clean site.</p></div>
+        <div class="offer"><svg class="ic" aria-hidden="true"><use href="#i-wall"/></svg><h3>Old structures and foundations</h3><p>Sheds, old slabs, and leftover foundations broken up and removed with the rest of the clearing.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section band-white" id="clearing-protect">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Protect what stays</p>
+        <h2>How we keep the trees you want</h2>
+        <p class="lede">A tree is killed more often by crushed roots than by a saw. The fence goes up before the first machine arrives.</p>
+      </div>
+      <div class="diagram">
+        <figure class="fig">
+          <div class="fig-scroll">
+            <svg viewBox="0 0 640 360" role="img" aria-label="A kept tree with its dripline marked, roots spreading past it, a protection fence beyond the dripline, and equipment and a stockpile kept outside the fence">
+              <rect width="640" height="360" fill="#F7F5F1"/>
+              <rect y="250" width="640" height="110" fill="#B98B6A"/>
+              <rect y="244" width="640" height="8" fill="#7A9A4F"/>
+              <g fill="none" stroke="#6B4A33" stroke-width="5" stroke-linecap="round"><path d="M320 252q-50 20-150 30"/><path d="M320 252q50 20 150 30"/><path d="M310 252q-30 40-120 60"/><path d="M330 252q30 40 120 60"/><path d="M320 252v60"/><path d="M300 262q-70 10-180 16"/><path d="M340 262q70 10 180 16"/></g>
+              <path d="M302 250V150q18-10 36 0v100z" fill="#5B4232"/>
+              <circle cx="320" cy="110" r="88" fill="#5E7D3A"/><circle cx="262" cy="140" r="52" fill="#7A9A4F"/><circle cx="378" cy="140" r="52" fill="#7A9A4F"/><circle cx="320" cy="60" r="50" fill="#7A9A4F"/>
+              <path d="M230 150V250M410 150V250" stroke="#231F1C" stroke-width="2" stroke-dasharray="6 5"/>
+              <rect x="168" y="214" width="304" height="36" fill="#E07A2A" fill-opacity=".35"/>
+              <path d="M168 220h304M168 232h304M168 244h304" stroke="#E07A2A" stroke-width="2"/>
+              <g fill="#5B4232"><rect x="166" y="206" width="5" height="46"/><rect x="242" y="206" width="5" height="46"/><rect x="393" y="206" width="5" height="46"/><rect x="469" y="206" width="5" height="46"/></g>
+              <path d="M20 250q50-56 110 0z" fill="#8A6246"/>
+              <use href="#s-exc" x="488" y="168" width="150" height="82"/>
+              <path d="M170 320H470" stroke="#231F1C" stroke-width="1.5"/><path d="M170 314v12M470 314v12" stroke="#231F1C" stroke-width="1.5"/>
+              <text class="dg-t" x="320" y="342" text-anchor="middle">Protection zone, fenced before clearing starts</text>
+              <text class="dg-n" x="75" y="212" text-anchor="middle">Stockpile outside</text>
+              <g class="callout" transform="translate(230 170)"><circle r="14"/><text>1</text></g>
+              <g class="callout" transform="translate(130 296)"><circle r="14"/><text>2</text></g>
+              <g class="callout" transform="translate(148 230)"><circle r="14"/><text>3</text></g>
+              <g class="callout" transform="translate(560 150)"><circle r="14"/><text>4</text></g>
+            </svg>
+          </div>
+          <figcaption class="fig-cap">The fence line is set on the walk, when you tell us which trees stay. Flagged trees are the only ones a saw never touches.</figcaption>
+        </figure>
+        <ol class="legend">
+          <li><div><strong>Dripline</strong><span>The edge of the canopy. It is the minimum edge of the protection zone, not the whole of it.</span></div></li>
+          <li><div><strong>Roots reach well past the dripline</strong><span>Most feeder roots sit in the top 18 inches of soil, where a single pass of a loaded machine crushes them.</span></div></li>
+          <li><div><strong>Fence set beyond the dripline</strong><span>Posted and fenced before equipment arrives, farther out for large or old trees.</span></div></li>
+          <li><div><strong>Machines and stockpiles stay outside</strong><span>No parking, no debris piles, no trenching inside the fence, for the whole job.</span></div></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="section band-tint" id="clearing-details">
+    <div class="wrap">
+      <div class="lineup">
+        <svg viewBox="0 0 1160 240" role="img" aria-label="Land clearing equipment: forestry mulcher, excavator with grapple, dozer, stump grinder, and dump truck">
+          <rect width="1160" height="240" fill="#F7F5F1"/>
+          <rect y="196" width="1160" height="2" fill="#D6CFC6"/>
+          <use href="#s-mul" x="20" y="90" width="200" height="107"/>
+          <use href="#s-grapple" x="250" y="60" width="250" height="137"/>
+          <use href="#s-doz" x="530" y="92" width="180" height="104"/>
+          <use href="#s-grd" x="745" y="102" width="150" height="95"/>
+          <use href="#s-trk" x="925" y="87" width="220" height="110"/>
+          <g class="dg-t" text-anchor="middle"><text x="120" y="226">Forestry mulcher</text><text x="375" y="226">Excavator with grapple</text><text x="620" y="226">Dozer</text><text x="820" y="226">Stump grinder</text><text x="1035" y="226">Dump truck</text></g>
+        </svg>
+      </div>
+      <div class="detail-grid">
+        <div class="detail">
+          <h3>Mulch in place or haul it off?</h3>
+          <p>The biggest decision on most clearing jobs is what happens to the debris. We recommend one after the walk, based on what you are building.</p>
+          <div class="panels">
+            <figure>
+              <svg viewBox="0 0 360 200" role="img" aria-label="Forestry mulcher grinding brush into a layer of chips">
+                <rect width="360" height="200" fill="#EAF0F4"/><rect y="150" width="360" height="50" fill="#B98B6A"/><rect y="138" width="360" height="14" fill="url(#p-mulch)"/>
+                <g fill="#5E7D3A"><circle cx="300" cy="128" r="16"/><circle cx="326" cy="120" r="20"/><circle cx="350" cy="130" r="14"/><circle cx="312" cy="110" r="12"/></g>
+                <g transform="translate(360 0) scale(-1 1)"><use href="#s-mul" x="150" y="52" width="170" height="90"/></g>
+                <g fill="#D6CFC6" fill-opacity=".9"><circle cx="236" cy="118" r="10"/><circle cx="250" cy="104" r="7"/></g>
+                <text class="dg-t" x="16" y="26">Mulched in place</text><text class="dg-n" x="16" y="44">2 to 4 in. of chips left as ground cover</text>
+              </svg>
+              <figcaption>Fastest and least disruptive. Best for pasture, trails, fence lines, and lots that will not be built on right away.</figcaption>
+            </figure>
+            <figure>
+              <svg viewBox="0 0 360 200" role="img" aria-label="Debris leaving by dump truck, site left as staked clean dirt behind silt fence">
+                <rect width="360" height="200" fill="#EAF0F4"/><rect y="150" width="360" height="50" fill="#B98B6A"/>
+                <path d="M30 152H200" stroke="#E05A9A" stroke-width="2" stroke-dasharray="6 4"/><use href="#s-stake" x="24" y="110" width="12" height="42"/><use href="#s-stake" x="196" y="110" width="12" height="42"/>
+                <use href="#s-trk" x="200" y="72" width="160" height="80"/>
+                <g fill="#5E7D3A"><circle cx="286" cy="90" r="10"/><circle cx="306" cy="84" r="12"/><circle cx="326" cy="92" r="9"/></g>
+                <use href="#s-fence" x="0" y="158" width="180" height="40"/>
+                <text class="dg-t" x="16" y="26">Hauled off</text><text class="dg-n" x="16" y="44">Clean subgrade, ready for grading</text>
+              </svg>
+              <figcaption>Everything leaves, stumps and roots included. Best for building pads, driveways, and anywhere the ground must be clean dirt.</figcaption>
+            </figure>
+          </div>
+          <dl>
+            <dt>Burning</dt><dd>Only where local rules allow it and with the required permit. Cheaper than hauling on large rural tracts.</dd>
+          </dl>
+        </div>
+        <div class="detail">
+          <h3>Equipment we bring</h3>
+          <ul>
+            <li><strong>Excavator with grapple and thumb</strong> for pulling stumps, sorting logs, and loading debris.</li>
+            <li><strong>Dozer</strong> for pushing brush and rough-shaping the cleared ground.</li>
+            <li><strong>Compact track loader with a forestry mulcher</strong> for brush and trees up to about 8 inches, including tight spots near structures.</li>
+            <li><strong>Stump grinder</strong> for stumps in lawns and near utilities where digging is not an option.</li>
+            <li><strong>Dump trucks and trailers</strong> for haul-off and bringing in gravel for the construction entrance.</li>
+          </ul>
+          <p>Silt fence and a gravel construction entrance go in before the first machine starts, which is what most permits require and what keeps mud off the road.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section svc-process" id="clearing-process">
+    <div class="wrap">
+      <div class="section-head">
+        <div><p class="eyebrow">Step by step</p><h2>How a land clearing job goes</h2></div>
+        <span class="meta">15 steps</span>
+      </div>
+      <div class="scenes">
+        <div class="scene-card">
+          <svg viewBox="0 0 360 200" role="img" aria-label="Overgrown lot with trees, brush, stumps, a fallen log, and an old shed">
+            <rect width="360" height="200" fill="#EAF0F4"/><rect y="140" width="360" height="60" fill="#6B8E3A"/>
+            <use href="#s-pine" x="14" y="64" width="44" height="78"/><use href="#s-oak" x="110" y="54" width="72" height="90"/><use href="#s-pine" x="246" y="52" width="52" height="92"/>
+            <rect x="296" y="104" width="52" height="38" fill="#8A6246"/><path d="M290 106l32-20 32 20z" fill="#5B4232"/>
+            <g fill="#4E7A34"><ellipse cx="70" cy="140" rx="26" ry="12"/><ellipse cx="200" cy="142" rx="30" ry="12"/><ellipse cx="250" cy="146" rx="20" ry="9"/><ellipse cx="30" cy="146" rx="18" ry="8"/></g>
+            <use href="#s-stump" x="150" y="122" width="36" height="24"/><rect x="200" y="118" width="60" height="12" rx="6" fill="#5B4232" transform="rotate(-8 230 124)"/>
+          </svg>
+          <div class="scene-t">Before<small>Trees, brush, stumps, and whatever was left behind. We walk it with you and flag what stays.</small></div>
+        </div>
+        <div class="scene-card">
+          <svg viewBox="0 0 360 200" role="img" aria-label="Forestry mulcher grinding brush while a flagged tree stays behind a fence">
+            <rect width="360" height="200" fill="#EAF0F4"/><rect y="140" width="360" height="60" fill="#B98B6A"/><rect x="60" y="134" width="140" height="10" fill="url(#p-mulch)"/>
+            <g fill="#4E7A34"><ellipse cx="16" cy="134" rx="22" ry="12"/><ellipse cx="36" cy="128" rx="14" ry="9"/></g>
+            <use href="#s-mul" x="26" y="58" width="160" height="85"/>
+            <g fill="#D6CFC6" fill-opacity=".9"><circle cx="34" cy="110" r="10"/><circle cx="22" cy="98" r="7"/></g>
+            <use href="#s-oak" x="246" y="44" width="76" height="96"/>
+            <rect x="226" y="120" width="116" height="22" fill="#E07A2A" fill-opacity=".45"/><path d="M226 126h116M226 136h116" stroke="#E07A2A" stroke-width="2"/>
+            <g fill="#5B4232"><rect x="224" y="114" width="4" height="30"/><rect x="340" y="114" width="4" height="30"/></g>
+            <path d="M284 116l12-5-12-4z" fill="#E05A9A"/>
+          </svg>
+          <div class="scene-t">Clearing<small>Brush goes first, then the big trees, then stumps and roots. Flagged trees stay fenced the whole time.</small></div>
+        </div>
+        <div class="scene-card">
+          <svg viewBox="0 0 360 200" role="img" aria-label="Cleared lot with a gravel entrance, silt fence, and the last debris leaving by truck">
+            <rect width="360" height="200" fill="#EAF0F4"/><rect y="140" width="360" height="60" fill="#B98B6A"/><rect x="16" y="136" width="110" height="16" fill="url(#p-base)"/>
+            <use href="#s-trk" x="196" y="64" width="156" height="78"/>
+            <g fill="#C9A27E" stroke="#5B4232" stroke-width="2"><circle cx="150" cy="124" r="9"/><circle cx="170" cy="124" r="9"/><circle cx="160" cy="110" r="9"/></g>
+            <use href="#s-fence" x="130" y="150" width="230" height="46"/>
+          </svg>
+          <div class="scene-t">Cleared<small>Silt fence and gravel entrance in place, debris hauled or mulched, ground left ready for grading.</small></div>
+        </div>
+      </div>
+      <ol class="steplist">
+        <li><div><h4>Consultation and property walk</h4><p>We walk the property with you to see what is there (trees, brush, stumps, old structures, debris) and what you plan to build or use the land for.</p></div></li>
+        <li><div><h4>Survey and boundary check</h4><p>Property lines are confirmed with a survey or plat and marked, so clearing stays on your land.</p></div></li>
+        <li><div><h4>Marking trees to keep</h4><p>Trees, landscaping, and areas you want saved are flagged, with protection zones set around their roots.</p></div></li>
+        <li><div><h4>Estimate</h4><p>Priced by acreage, vegetation density, tree size, stump count, terrain, access, and how the debris will be handled.</p></div></li>
+        <li><div><h4>Permits and environmental checks</h4><p>Tree ordinances, land-disturbance permits, wetland and stream buffers, and protected-species rules are checked. Larger sites may need an erosion control plan.</p></div></li>
+        <li><div><h4>Utility locates</h4><p>811 is called so underground lines are marked before any digging or stump work.</p></div></li>
+        <li><div><h4>Erosion and sediment control</h4><p>Silt fence, a gravel construction entrance, and any other controls the permit requires go in before the soil is disturbed.</p></div></li>
+        <li><div><h4>Equipment mobilization</h4><p>The right machines for the job arrive: excavators with grapples, dozers, skid steers, forestry mulchers, and stump grinders.</p></div></li>
+        <li><div><h4>Underbrush and small vegetation</h4><p>Brush, vines, saplings, and small trees are cleared first to open up access, usually with a forestry mulcher or skid steer.</p></div></li>
+        <li><div><h4>Tree felling</h4><p>Larger trees are cut in a controlled direction, away from structures, power lines, and the trees being kept.</p></div></li>
+        <li><div><h4>Stump removal</h4><p>Stumps are ground below grade or pulled out entirely. Full removal is standard where a foundation or driveway will go.</p></div></li>
+        <li><div><h4>Root raking</h4><p>Remaining roots and buried debris are raked out so the ground is ready for grading.</p></div></li>
+        <li><div><h4>Debris handling</h4><p>Mulched on site, hauled off, chipped, or burned where permitted. Salvageable timber is set aside if you want it.</p></div></li>
+        <li><div><h4>Rough clean-up</h4><p>Stump holes are filled, ruts are smoothed, and the site is left ready for grading or construction.</p></div></li>
+        <li><div><h4>Final walkthrough</h4><p>We review the cleared area with you and confirm that the protected trees and boundaries were respected before closing out the job.</p></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section band-white faq" id="clearing-faq">
+    <div class="wrap">
+      <div class="section-head"><p class="eyebrow">Questions</p><h2>About land clearing</h2></div>
+      <details class="acc" name="cfaq"><summary>Do I need a permit to clear my own land?<span class="chev" aria-hidden="true"><svg><use href="#i-chev"/></svg></span></summary><div class="acc-body"><p>Sometimes. Many counties require a land-disturbance permit above a certain area, and some cities have tree ordinances that protect larger trees. Stream and wetland buffers have their own rules. We check what applies to your parcel before we quote.</p></div></details>
+      <details class="acc" name="cfaq"><summary>What happens to the stumps?<span class="chev" aria-hidden="true"><svg><use href="#i-chev"/></svg></span></summary><div class="acc-body"><p>It depends on what the land is for. In a lawn or pasture, grinding them below grade is enough. Under a building pad, driveway, or septic field, the whole stump and its roots come out, because buried wood rots and the ground above it settles.</p></div></details>
+      <details class="acc" name="cfaq"><summary>Can you save specific trees?<span class="chev" aria-hidden="true"><svg><use href="#i-chev"/></svg></span></summary><div class="acc-body"><p>Yes. We flag them on the walk, fence off the root zone, and keep equipment and stockpiles off it. Roots extend well past the canopy, so the protection zone is larger than most people expect.</p></div></details>
+      <details class="acc" name="cfaq"><summary>How long does clearing take?<span class="chev" aria-hidden="true"><svg><use href="#i-chev"/></svg></span></summary><div class="acc-body"><p>A typical building lot takes a day or two. Acreage with large trees and haul-off takes longer. The estimate includes a schedule for your site.</p></div></details>
+    </div>
+  </section>
+
+  <section class="cta-band on-dark">
+    <div class="wrap cta-inner">
+      <div class="cta-copy"><h2>Have a lot or acreage to clear?</h2><p>We will walk it with you and give you a written estimate, free.</p></div>
+      <div class="cta-actions"><a class="btn btn-white" href="#contact" data-service="svc-clearing">Request a Free Estimate</a><a class="btn btn-ghost" href="#services">All Services</a></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head"><p class="eyebrow">Pairs with</p><h2>What usually comes next.</h2></div>
+      <div class="pairs">
+        <a class="pair" href="#grading"><img src="img/grading.jpg" width="925" height="559" alt="" loading="lazy"><div class="pair-body"><h3>Grading</h3><p>Shape the cleared ground for drainage and a solid pad.</p></div></a>
+        <a class="pair" href="#masonry"><img src="img/masonry.jpg" width="640" height="480" alt="" loading="lazy"><div class="pair-body"><h3>Masonry</h3><p>Footings, walls, and steps built on the ground we prepared.</p></div></a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ======================= GRADING ======================= -->
+<div class="view" id="view-grading" hidden>
+  <section class="svc-hero on-dark">
+    <div class="wrap">
+      <ol class="crumbs"><li><a href="#top">Home</a></li><li><a href="#services">Services</a></li><li>Grading</li></ol>
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow eyebrow-dark">Grading</p>
+          <h1 tabindex="-1">Ground shaped for drainage and a solid build.</h1>
+          <p class="hero-lede">Building pads, driveways, yards, and drainage fixes, cut and filled to plan, compacted in lifts, and finished so water goes where it should.</p>
+          <ul class="chips"><li>Rough and finish grading</li><li>Building pads</li><li>Driveways</li><li>Drainage</li></ul>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#contact" data-service="svc-grading">Request a Free Estimate</a>
+            <a class="btn btn-outline" href="#grading-process">See the 15 Steps</a>
+          </div>
+        </div>
+        <figure class="hero-photo">
+          <img src="img/grading.jpg" width="925" height="559" alt="An excavator shaping a dirt pad on a grading site" loading="lazy">
+          <figcaption>Cutting a building pad to grade</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+  <div class="joint" aria-hidden="true"></div>
+
+  <section class="section" id="grading-work">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">What we grade</p>
+        <h2>Grading services</h2>
+        <p class="lede">Site work for new construction and fixes for ground that was never shaped right the first time.</p>
+      </div>
+      <div class="offer-grid">
+        <div class="offer"><svg class="ic" aria-hidden="true"><use href="#i-pad"/></svg><h3>Building pads</h3><p>House, garage, and shop pads cut to elevation, compacted in lifts, and tested where the plans call for it.</p></div>
+        <div class="offer"><svg class="ic" aria-hidden="true"><use href="#i-drive"/></svg><h3>Driveways and parking areas</h3><p>Subgrade shaped and compacted, base stone laid and crowned so the surface sheds water instead of holding it.</p></div>
+        <div class="offer"><svg class="ic" aria-hidden="true"><use href="#i-level"/></svg><h3>Yard and lot regrading</h3><p>Low spots filled, slopes corrected, and the yard pitched away from the house.</p></div>
+        <div class="offer"><svg class="ic" aria-hidden="true"><use href="#i-drop"/></svg><h3>Drainage correction</h3><p>Swales, French drains, culverts, and catch basins that move water off the property instead of into the crawlspace.</p></div>
+        <div class="offer"><svg class="ic" aria-hidden="true"><use href="#i-cutfill"/></svg><h3>Cut and fill, site leveling</h3><p>Soil moved from high ground to low to reach the planned shape, with fill brought in or excess hauled out as needed.</p></div>
+        <div class="offer"><svg class="ic" aria-hidden="true"><use href="#i-backfill"/></svg><h3>Backfill and compaction</h3><p>Foundations, retaining walls, and utility trenches backfilled in lifts and compacted so nothing settles later.</p></div>
+        <div class="offer"><svg class="ic" aria-hidden="true"><use href="#i-compact"/></svg><h3>Finish grading</h3><p>The final pass that brings the surface to exact elevation and even slopes, ready for seed, sod, or paving.</p></div>
+        <div class="offer"><svg class="ic" aria-hidden="true"><use href="#i-seed"/></svg><h3>Topsoil and stabilization</h3><p>Stockpiled topsoil spread back, then seed and straw, hydroseed, or sod to hold the ground.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section band-white" id="grading-drainage">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Water goes where it should</p>
+        <h2>Grading that keeps a crawlspace dry</h2>
+        <p class="lede">Most wet crawlspaces and basements are a grading problem, not a waterproofing problem. This is the shape we grade toward.</p>
+      </div>
+      <div class="diagram">
+        <figure class="fig">
+          <div class="fig-scroll">
+            <svg viewBox="0 0 640 360" role="img" aria-label="House with ground graded to drop 6 inches in the first 10 feet, a downspout splash block, and a swale carrying water away; a dashed line shows the settled grade before">
+              <rect width="640" height="360" fill="#F7F5F1"/>
+              <path d="M0 230H240L400 254Q470 265 520 290Q560 302 640 272V360H0z" fill="#B98B6A"/>
+              <path d="M240 244Q320 254 400 254" fill="none" stroke="#6B4A33" stroke-width="2" stroke-dasharray="6 5"/>
+              <ellipse cx="262" cy="242" rx="20" ry="5" fill="#6FA7C7"/>
+              <path d="M240 230L400 254Q470 265 520 290Q560 302 640 272" fill="none" stroke="#7A9A4F" stroke-width="8"/>
+              <path d="M0 230H40" stroke="#7A9A4F" stroke-width="8"/>
+              <rect x="40" y="230" width="200" height="70" fill="#A8A39B"/>
+              <rect x="30" y="300" width="220" height="18" fill="#C9C4BC" stroke="#A8A39B" stroke-width="2"/>
+              <rect x="40" y="100" width="200" height="132" fill="#E8E4DD" stroke="#A8A39B" stroke-width="2"/>
+              <path d="M28 102L140 28l112 74z" fill="#5B4232"/>
+              <rect x="70" y="130" width="34" height="34" fill="#2B3540"/><rect x="176" y="130" width="34" height="34" fill="#2B3540"/>
+              <text class="dg-n" x="140" y="270" text-anchor="middle">Crawlspace</text>
+              <rect x="236" y="100" width="7" height="128" fill="#8F8A84"/>
+              <path d="M243 226h50l-6 10h-44z" fill="#C9C4BC"/>
+              <g fill="none" stroke="#6FA7C7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M300 240l22 4-6-5m6 5-7 3"/><path d="M350 248l22 5-6-5m6 5-7 3"/><path d="M440 262l22 9-6-6m6 6-8 2"/></g>
+              <text class="dg-t" x="520" y="326" text-anchor="middle">Swale</text>
+              <path d="M240 334H400" stroke="#231F1C" stroke-width="1.5"/><path d="M240 328v12M400 328v12" stroke="#231F1C" stroke-width="1.5"/>
+              <text class="dg-t" x="320" y="352" text-anchor="middle">10 ft</text>
+              <path d="M420 230V254" stroke="#231F1C" stroke-width="1.5"/><path d="M414 230h12M414 254h12" stroke="#231F1C" stroke-width="1.5"/>
+              <text class="dg-t" x="430" y="246">6 in. drop</text>
+              <text class="dg-n" x="430" y="262">(slope exaggerated)</text>
+              <text class="dg-n" x="262" y="224" text-anchor="middle">Before</text>
+              <g class="callout" transform="translate(360 216)"><circle r="14"/><text>1</text></g>
+              <g class="callout" transform="translate(478 302)"><circle r="14"/><text>2</text></g>
+              <g class="callout" transform="translate(314 198)"><circle r="14"/><text>3</text></g>
+              <g class="callout" transform="translate(262 282)"><circle r="14"/><text>4</text></g>
+              <g class="callout" transform="translate(600 248)"><circle r="14"/><text>5</text></g>
+            </svg>
+          </div>
+          <figcaption class="fig-cap">The dashed line and puddle show the usual before: backfill that settled into a trough against the foundation. The solid grade is what we leave.</figcaption>
+        </figure>
+        <ol class="legend">
+          <li><div><strong>Grade slopes away from the house</strong><span>At least 6 inches of drop in the first 10 feet, the common building-code minimum.</span></div></li>
+          <li><div><strong>Swale</strong><span>A shallow grassed channel that carries runoff along the lot instead of letting it pool.</span></div></li>
+          <li><div><strong>Downspouts discharge away from the wall</strong><span>Onto a splash block or extension, never straight into the backfill.</span></div></li>
+          <li><div><strong>Backfill compacted in lifts</strong><span>Loose backfill settles for years and tilts the grade back toward the house. Compacted backfill stays put.</span></div></li>
+          <li><div><strong>Topsoil and lawn on top only</strong><span>Spread over the finished grade, never used as fill, so the slope holds its shape.</span></div></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="section band-tint" id="grading-details">
+    <div class="wrap detail-grid">
+      <div class="detail">
+        <h3>Rough grading and finish grading</h3>
+        <p>Most jobs need both, and they are different passes with different equipment.</p>
+        <figure class="fig fig-sm">
+          <svg viewBox="0 0 640 300" role="img" aria-label="Cross-section of a site: existing grade dashed, finished grade solid, cut from the high side, fill placed on the low side, level building pad in between">
+            <rect width="640" height="300" fill="#F7F5F1"/>
+            <path d="M0 120L80 100 160 80 240 100 320 150 400 160 480 180 560 200 640 230V300H0z" fill="#B98B6A"/>
+            <path d="M0 120L80 100 160 80 240 100 320 150 160 150 80 130z" fill="url(#p-cut)"/>
+            <path d="M320 150H480L560 200 480 180 400 160z" fill="url(#p-lift)"/>
+            <path d="M0 120L80 100 160 80 240 100 320 150 400 160 480 180 560 200 640 230" fill="none" stroke="#6B4A33" stroke-width="2.5" stroke-dasharray="8 6"/>
+            <path d="M0 120L80 130 160 150H480L560 200 640 230" fill="none" stroke="#231F1C" stroke-width="3"/>
+            <path d="M20 128q40-44 84 0z" fill="#6B4A33"/>
+            <text class="dg-n" x="62" y="90" text-anchor="middle">Topsoil stockpile</text>
+            <use href="#s-doz" x="330" y="69" width="140" height="81"/>
+            <text class="dg-t" x="170" y="118" text-anchor="middle">Cut</text>
+            <path d="M170 124v16m-5-6 5 6 5-6" stroke="#9B3B2E" stroke-width="2" fill="none"/>
+            <text class="dg-t" x="440" y="198" text-anchor="middle">Fill</text>
+            <path d="M440 184v-16m-5 6 5-6 5 6" stroke="#9B3B2E" stroke-width="2" fill="none"/>
+            <text class="dg-t" x="250" y="142" text-anchor="middle">Building pad</text>
+            <g transform="translate(16 270)"><path d="M0 0h30" stroke="#6B4A33" stroke-width="2.5" stroke-dasharray="8 6"/><text class="dg-n" x="38" y="4">Existing grade</text><path d="M150 0h30" stroke="#231F1C" stroke-width="3"/><text class="dg-n" x="188" y="4">Finished grade</text></g>
+          </svg>
+          <figcaption class="fig-cap">Cut from the high side, fill on the low side in compacted lifts, pad left level and above the ground around it.</figcaption>
+        </figure>
+        <dl>
+          <dt>Rough grading</dt><dd>The bulk earthwork. Dozers and excavators move the soil to within a few inches of the plan, and fill goes in and gets compacted. This is where drainage structures and pads take shape.</dd>
+          <dt>Finish grading</dt><dd>The precision pass. The surface is brought to final elevation with a grader, box blade, or skid steer and checked with a laser or GPS, then topsoil goes on where there will be lawn.</dd>
+        </dl>
+      </div>
+      <div class="detail">
+        <h3>What good grading does</h3>
+        <ul>
+          <li><strong>Slope away from the house.</strong> Building codes commonly call for at least 6 inches of fall in the first 10 feet from a foundation. Most wet crawlspaces fail this test.</li>
+          <li><strong>Compaction in lifts.</strong> Fill placed in thin layers and compacted each time will not settle. Fill dumped in one deep pile will, taking the slab or driveway above it along.</li>
+          <li><strong>Topsoil handled separately.</strong> Topsoil is stripped and saved, never buried under a pad, because it is too soft and organic to build on.</li>
+          <li><strong>Erosion control from day one.</strong> Silt fence goes in before the first cut and stays until the ground is stable.</li>
+        </ul>
+        <figure class="fig fig-sm">
+          <svg viewBox="0 0 360 220" role="img" aria-label="Four layers of fill stacked on native ground with a roller compacting the top layer">
+            <rect width="360" height="220" fill="#F7F5F1"/>
+            <rect y="190" width="360" height="30" fill="#B98B6A"/>
+            <g stroke="#8A6246" stroke-width="2"><rect x="40" y="160" width="280" height="30" fill="#D9C3A5"/><rect x="40" y="130" width="280" height="30" fill="#C9A27E"/><rect x="40" y="100" width="280" height="30" fill="#D9C3A5"/><rect x="40" y="70" width="280" height="30" fill="#C9A27E"/></g>
+            <g class="dg-n" style="font-size:10px"><text x="50" y="179">Lift 1</text><text x="50" y="149">Lift 2</text><text x="50" y="119">Lift 3</text><text x="50" y="89">Lift 4</text></g>
+            <use href="#s-rol" x="188" y="-4" width="137" height="80"/>
+            <path d="M226 76v12m-5-5 5 5 5-5M266 76v12m-5-5 5 5 5-5" stroke="#9B3B2E" stroke-width="2" fill="none"/>
+            <text class="dg-n" x="330" y="209" text-anchor="end" style="font-size:10px;fill:#F4F2EE">Native ground</text>
+            <text class="dg-n" x="16" y="22" style="font-size:10px">Each lift 6 to 8 in., rolled</text>
+            <text class="dg-n" x="16" y="36" style="font-size:10px">before the next goes on</text>
+          </svg>
+          <figcaption class="fig-cap">Fill goes down in lifts of 6 to 8 inches, each compacted before the next, so a pad or driveway never settles.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="section svc-process" id="grading-process">
+    <div class="wrap">
+      <div class="section-head">
+        <div><p class="eyebrow">Step by step</p><h2>How a grading job goes</h2></div>
+        <span class="meta">15 steps</span>
+      </div>
+      <div class="scenes">
+        <div class="scene-card">
+          <svg viewBox="0 0 360 200" role="img" aria-label="Uneven site with grade stakes and a survey instrument">
+            <rect width="360" height="200" fill="#EAF0F4"/>
+            <path d="M0 150Q60 120 120 142T240 132T360 150V200H0z" fill="#B98B6A"/>
+            <path d="M0 150Q60 120 120 142T240 132T360 150" fill="none" stroke="#7A9A4F" stroke-width="8"/>
+            <use href="#s-tripod" x="24" y="88" width="36" height="60"/>
+            <use href="#s-stake" x="110" y="96" width="14" height="46"/><use href="#s-stake" x="180" y="92" width="14" height="46"/><use href="#s-stake" x="250" y="90" width="14" height="46"/><use href="#s-stake" x="320" y="98" width="14" height="46"/>
+            <path d="M117 110H327" stroke="#E05A9A" stroke-width="1.5"/>
+          </svg>
+          <div class="scene-t">Staked<small>Elevations shot, target grades set, stakes and string tell the operators how much to cut or fill at each point.</small></div>
+        </div>
+        <div class="scene-card">
+          <svg viewBox="0 0 360 200" role="img" aria-label="Dozer cutting high ground while a roller compacts fill on the low side">
+            <rect width="360" height="200" fill="#EAF0F4"/><rect y="150" width="360" height="50" fill="#B98B6A"/>
+            <path d="M250 150Q300 100 360 118V150z" fill="#B98B6A"/><path d="M250 150Q300 100 360 118" fill="none" stroke="#6B4A33" stroke-width="2" stroke-dasharray="6 4"/>
+            <rect x="20" y="138" width="130" height="12" fill="url(#p-lift)"/>
+            <use href="#s-doz" x="150" y="80" width="120" height="70"/>
+            <use href="#s-rol" x="14" y="76" width="110" height="64"/>
+            <path d="M128 150q16-14 32 0z" fill="#8A6246"/>
+          </svg>
+          <div class="scene-t">Cut and fill<small>High ground comes down, low ground comes up in compacted lifts, and the pad takes shape.</small></div>
+        </div>
+        <div class="scene-card">
+          <svg viewBox="0 0 360 200" role="img" aria-label="Finished level pad with a house outline, driveway base stone, swale, and lawn">
+            <rect width="360" height="200" fill="#EAF0F4"/>
+            <path d="M0 150H90L110 136H250L270 150Q300 166 330 150H360V200H0z" fill="#B98B6A"/>
+            <path d="M0 150H90L110 136H250L270 150Q300 166 330 150H360" fill="none" stroke="#7A9A4F" stroke-width="8"/>
+            <rect x="0" y="146" width="92" height="10" fill="url(#p-base)"/>
+            <path d="M126 136V92h108v44" fill="none" stroke="#231F1C" stroke-width="2" stroke-dasharray="6 4"/>
+            <use href="#s-stake" x="120" y="92" width="12" height="44"/><use href="#s-stake" x="228" y="92" width="12" height="44"/>
+            <path d="M296 150l4 10 4-10" stroke="#6FA7C7" stroke-width="2.5" fill="none"/>
+          </svg>
+          <div class="scene-t">Finished<small>Pad level and checked, driveway base in, swale pitched to carry water off, lawn areas topsoiled and seeded.</small></div>
+        </div>
+      </div>
+      <ol class="steplist">
+        <li><div><h4>Consultation and site evaluation</h4><p>We learn what the land is being prepared for and look at the existing slopes, low spots, soil type, and where water currently goes.</p></div></li>
+        <li><div><h4>Survey and grading plan</h4><p>Existing elevations are shot and target grades set from the site plan or engineer's drawings, with finished elevations, slopes, and drainage paths marked.</p></div></li>
+        <li><div><h4>Estimate</h4><p>Priced by area, how much soil has to be cut or filled, whether fill comes in or excess goes out, soil conditions, and equipment needs.</p></div></li>
+        <li><div><h4>Permits and utility locates</h4><p>Grading or land-disturbance permits where required, and 811 called before digging.</p></div></li>
+        <li><div><h4>Erosion control</h4><p>Silt fence and other controls go in before any soil moves and stay up for the whole job.</p></div></li>
+        <li><div><h4>Staking</h4><p>Grade stakes or GPS and laser grade control tell the operators how much to cut or fill at each point.</p></div></li>
+        <li><div><h4>Topsoil stripping</h4><p>Topsoil is stripped from the work area and stockpiled for reuse. It is too soft and organic to build on.</p></div></li>
+        <li><div><h4>Rough grading (cut and fill)</h4><p>Soil moves from high spots to low spots to bring the land close to the planned shape. Fill is imported or extra soil hauled off as needed.</p></div></li>
+        <li><div><h4>Compaction</h4><p>Fill is compacted in lifts with rollers or plate compactors to the required density so the ground will not settle. Building pads may need compaction testing.</p></div></li>
+        <li><div><h4>Drainage work</h4><p>Swales, culverts, French drains, or catch basins go in, and slopes are set so water runs away from structures.</p></div></li>
+        <li><div><h4>Pad and driveway prep</h4><p>Building pads are shaped to exact elevation and base stone laid for driveways or parking areas when the job includes them.</p></div></li>
+        <li><div><h4>Finish grading</h4><p>The surface is fine-tuned to final elevation, smoothed, and checked so every slope is even and drains correctly.</p></div></li>
+        <li><div><h4>Topsoil replacement</h4><p>The stockpiled topsoil is spread back over areas that will be lawn or landscaping.</p></div></li>
+        <li><div><h4>Stabilization</h4><p>Seed and straw, hydroseed, or sod holds the soil. Temporary erosion controls come out once the ground is stable, if the permit allows.</p></div></li>
+        <li><div><h4>Final check and walkthrough</h4><p>Grades are checked against the plan and drainage is observed (ideally after a rain) before we walk the finished site with you.</p></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section band-white faq" id="grading-faq">
+    <div class="wrap">
+      <div class="section-head"><p class="eyebrow">Questions</p><h2>About grading and drainage</h2></div>
+      <details class="acc" name="gfaq"><summary>Why does water pool in my yard or run toward the house?<span class="chev" aria-hidden="true"><svg><use href="#i-chev"/></svg></span></summary><div class="acc-body"><p>Usually because the ground was never pitched away from the foundation, or because fill settled over the years and created low spots. Regrading the yard, and sometimes adding a swale or French drain, fixes the cause rather than the symptom.</p></div></details>
+      <details class="acc" name="gfaq"><summary>Can you fix drainage without regrading the whole yard?<span class="chev" aria-hidden="true"><svg><use href="#i-chev"/></svg></span></summary><div class="acc-body"><p>Often. A swale, a French drain, or a catch basin with a buried pipe can solve one wet area without disturbing the rest. We look at where the water comes from before recommending anything.</p></div></details>
+      <details class="acc" name="gfaq"><summary>Do you bring in fill dirt, and what kind?<span class="chev" aria-hidden="true"><svg><use href="#i-chev"/></svg></span></summary><div class="acc-body"><p>Yes, when the site needs more soil than it has. Under pads and driveways we use structural fill or crusher run that compacts well, and we keep topsoil for the surface only. The estimate shows the quantities.</p></div></details>
+      <details class="acc" name="gfaq"><summary>Will my building pad need a compaction test?<span class="chev" aria-hidden="true"><svg><use href="#i-chev"/></svg></span></summary><div class="acc-body"><p>Many building departments and engineers require one on fill pads. We compact in lifts to make it pass, and we can arrange the testing if your plans call for it.</p></div></details>
+    </div>
+  </section>
+
+  <section class="cta-band on-dark">
+    <div class="wrap cta-inner">
+      <div class="cta-copy"><h2>Need a pad, driveway, or drainage fix?</h2><p>Free site visit and written estimate. We will tell you what the ground needs.</p></div>
+      <div class="cta-actions"><a class="btn btn-white" href="#contact" data-service="svc-grading">Request a Free Estimate</a><a class="btn btn-ghost" href="#services">All Services</a></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head"><p class="eyebrow">Pairs with</p><h2>Before and after the grading.</h2></div>
+      <div class="pairs">
+        <a class="pair" href="#clearing"><img src="img/clearing-wide.jpg" width="745" height="559" alt="" loading="lazy"><div class="pair-body"><h3>Land Clearing</h3><p>Trees, brush, and stumps out before the first cut.</p></div></a>
+        <a class="pair" href="#masonry"><img src="img/masonry.jpg" width="640" height="480" alt="" loading="lazy"><div class="pair-body"><h3>Masonry</h3><p>Footings, retaining walls, and steps built on the finished grade.</p></div></a>
+      </div>
+    </div>
+  </section>
+</div>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-grid">
+    <div class="footer-brand">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="4" fill="#9B3B2E"/><g fill="#F4F2EE"><rect x="6" y="8" width="13" height="6"/><rect x="21" y="8" width="13" height="6"/><rect x="6" y="17" width="6" height="6"/><rect x="14" y="17" width="13" height="6"/><rect x="29" y="17" width="5" height="6"/><rect x="6" y="26" width="13" height="6"/><rect x="21" y="26" width="13" height="6"/></g></svg>
+      <span>C&amp;W Masonry, LLC</span>
+    </div>
+    <ul class="footer-links">
+      <li><a href="#masonry">Masonry</a></li>
+      <li><a href="#clearing">Land Clearing</a></li>
+      <li><a href="#grading">Grading</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <p>© 2026 C&amp;W Masonry, LLC · <mark class="ph">[City, State]</mark></p>
+  </div>
+</footer>
+
+<div class="mobile-cta" id="mobile-cta">
+  <a class="btn btn-primary" href="#contact">Request a Free Estimate</a>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  var each = function (list, fn) { Array.prototype.forEach.call(list, fn); };
+
+  /* ---------- navigation ---------- */
+  var toggle = $('nav-toggle'), menu = $('mobile-menu');
+  function closeMenu() {
+    menu.hidden = true;
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.setAttribute('aria-label', 'Open menu');
+  }
+  toggle.addEventListener('click', function () {
+    if (menu.hidden) {
+      menu.hidden = false;
+      toggle.setAttribute('aria-expanded', 'true');
+      toggle.setAttribute('aria-label', 'Close menu');
+    } else { closeMenu(); }
+  });
+  each(menu.querySelectorAll('a'), function (a) { a.addEventListener('click', closeMenu); });
+
+  /* Links from a service page pre-check that service on the form. */
+  each(document.querySelectorAll('a[data-service]'), function (a) {
+    a.addEventListener('click', function () {
+      var box = $(a.getAttribute('data-service'));
+      if (box) box.checked = true;
+    });
+  });
+
+  /* ---------- views (tabs) ---------- */
+  var home = $('view-home');
+  var VIEWS = { masonry: $('view-masonry'), clearing: $('view-clearing'), grading: $('view-grading') };
+  var navLinks = document.querySelectorAll('a[data-view]');
+  var current = null;
+  function jumpTop() {
+    var root = document.documentElement;
+    root.style.scrollBehavior = 'auto';
+    window.scrollTo(0, 0);
+    requestAnimationFrame(function () { root.style.scrollBehavior = ''; });
+  }
+  function route() {
+    var h = (location.hash || '').replace(/^#/, '');
+    try { h = decodeURIComponent(h); } catch (e) {}
+    var name = 'home', target = null;
+    Object.keys(VIEWS).forEach(function (k) {
+      if (h === k) name = k;
+      else if (h.indexOf(k + '-') === 0) { name = k; target = h; }
+    });
+    if (name === 'home' && h && h !== 'top') target = h;
+    var changed = current !== name;
+    home.hidden = name !== 'home';
+    Object.keys(VIEWS).forEach(function (k) { VIEWS[k].hidden = k !== name; });
+    each(navLinks, function (a) {
+      if (a.getAttribute('data-view') === name) a.setAttribute('aria-current', 'page');
+      else a.removeAttribute('aria-current');
+    });
+    var wasLoaded = current !== null;
+    current = name;
+    var el = target ? document.getElementById(target) : null;
+    if (el) {
+      if (changed) jumpTop();
+      el.scrollIntoView({ block: 'start' });
+    } else if (changed) {
+      jumpTop();
+      if (wasLoaded) {
+        var hd = (name === 'home' ? home : VIEWS[name]).querySelector('h1');
+        if (hd) hd.focus({ preventScroll: true });
+      }
+    }
+    onScroll();
+  }
+  window.addEventListener('hashchange', route);
+
+  /* ---------- parallax ---------- */
+  function pines(seed, base, minH, maxH) {
+    var s = seed;
+    function r() { s = (s * 9301 + 49297) % 233280; return s / 233280; }
+    var d = 'M0 800V' + base, x = 0;
+    while (x < 1440) {
+      var w = 16 + r() * 26, h = minH + r() * (maxH - minH);
+      d += 'L' + (x + w / 2).toFixed(0) + ' ' + (base - h).toFixed(0) + 'L' + (x + w).toFixed(0) + ' ' + base;
+      x += w * 0.68;
+    }
+    return d + 'L1440 800Z';
+  }
+  $('pines-far').setAttribute('d', pines(7, 640, 30, 80));
+  $('pines-near').setAttribute('d', pines(23, 672, 40, 115));
+
+  var scene = $('scene');
+  var layers = Array.prototype.slice.call(scene.querySelectorAll('[data-speed]'));
+  var titleLayer = $('scene-title-layer');
+  var photos = Array.prototype.slice.call(document.querySelectorAll('.service-photo img'));
+  photos.forEach(function (img) { img.classList.add('plx'); });
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var ticking = false;
+  function frame() {
+    ticking = false;
+    if (reduce || home.hidden) return;
+    var vh = window.innerHeight;
+    var r = scene.getBoundingClientRect();
+    var y = Math.max(0, -r.top);
+    if (y <= r.height) {
+      layers.forEach(function (l) {
+        l.style.transform = 'translate3d(0,' + (y * parseFloat(l.getAttribute('data-speed'))).toFixed(1) + 'px,0)';
+      });
+      titleLayer.style.opacity = Math.max(0, 1 - y / (r.height * 0.6)).toFixed(3);
+    }
+    photos.forEach(function (img) {
+      var b = img.parentNode.getBoundingClientRect();
+      if (b.bottom < 0 || b.top > vh) return;
+      var off = ((b.top + b.height / 2) - vh / 2) / vh;
+      img.style.transform = 'translate3d(0,' + (off * -22).toFixed(1) + 'px,0) scale(1.14)';
+    });
+  }
+  function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(frame); } }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+
+  /* Hide the floating button while the form is on screen; the form has its own. */
+  var cta = $('mobile-cta'), contact = $('contact');
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (entries) { cta.hidden = entries[0].isIntersecting; }, { threshold: 0.05 }).observe(contact);
+  }
+
+  /* ---------- estimate form ---------- */
+  var form = $('estimate-form');
+  var errBox = $('form-error'), savedBox = $('form-saved'), fallbackBox = $('form-fallback');
+  var submitBtn = $('submit-btn');
+  var SERVICES = ['svc-masonry', 'svc-clearing', 'svc-grading'];
+
+  function collect() {
+    var services = SERVICES.filter(function (id) { return $(id).checked; }).map(function (id) { return $(id).value; });
+    return {
+      name: $('name').value.trim(), phone: $('phone').value.trim(), email: $('email').value.trim(),
+      contactPref: $('contact-pref').value, address: $('address').value.trim(),
+      services: services, timeline: $('timeline').value, details: $('details').value.trim()
+    };
+  }
+  function validate(d) {
+    var problems = [];
+    if (!d.name) problems.push('your name');
+    if (!d.phone) problems.push('a phone number');
+    if (d.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email)) problems.push('a valid email address (or leave it blank)');
+    return problems;
+  }
+  function summary(d) {
+    return [
+      'Estimate request for C&W Masonry, LLC',
+      'Name: ' + d.name, 'Phone: ' + d.phone, 'Email: ' + (d.email || 'not given'),
+      'Best way to reach: ' + d.contactPref, 'Property: ' + (d.address || 'not given'),
+      'Services: ' + (d.services.length ? d.services.join(', ') : 'not sure yet'),
+      'Start: ' + d.timeline, 'Details: ' + (d.details || 'none')
+    ].join('\n');
+  }
+  function hideAll() { errBox.hidden = true; savedBox.hidden = true; fallbackBox.hidden = true; }
+  function show(box) { hideAll(); box.hidden = false; box.focus(); }
+
+  var db = null, user = null, isAdmin = false, requestsCol = null;
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var d = collect();
+    var problems = validate(d);
+    if (problems.length) { errBox.textContent = 'Please add ' + problems.join(' and ') + '.'; show(errBox); return; }
+    submitBtn.disabled = true;
+    var done = function () { submitBtn.disabled = false; };
+    if (requestsCol && isAdmin) {
+      var row = {
+        name: d.name, phone: d.phone, email: d.email, contactPref: d.contactPref, address: d.address,
+        services: d.services, timeline: d.timeline, details: d.details, status: 'new', createdAt: new Date().toISOString()
+      };
+      requestsCol.add(row).then(function (ref) {
+        $('saved-text').textContent = 'Saved as request ' + ref.id.slice(0, 8) + '. It is in your Requests list below.';
+        show(savedBox); form.reset(); done();
+      }).catch(function () {
+        $('summary-text').textContent = summary(d); show(fallbackBox); done();
+      });
+      return;
+    }
+    $('summary-text').textContent = summary(d); show(fallbackBox); done();
+  });
+
+  $('copy-btn').addEventListener('click', function () {
+    var text = $('summary-text').textContent;
+    var ok = function () { $('copied-msg').hidden = false; setTimeout(function () { $('copied-msg').hidden = true; }, 2500); };
+    var fallbackSelect = function () {
+      var r = document.createRange(); r.selectNodeContents($('summary-text'));
+      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(ok, fallbackSelect);
+    else fallbackSelect();
+  });
+
+  /* ---------- owner-only requests panel (db capability) ---------- */
+  var STATUSES = ['new', 'contacted', 'quoted', 'closed'];
+  var allRequests = [];
+  var reqList = $('req-list'), reqEmpty = $('req-empty'), reqFilter = $('req-filter'), reqSummary = $('req-summary');
+
+  function fmtDate(iso) {
+    var d = new Date(iso);
+    if (isNaN(d.getTime())) return '';
+    return d.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' }) + ' ' +
+           d.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' });
+  }
+  function el(tag, cls, text) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text !== undefined) n.textContent = text;
+    return n;
+  }
+  function renderRequests() {
+    var mode = reqFilter.value;
+    var rows = allRequests.filter(function (r) {
+      if (mode === 'all') return true;
+      if (mode === 'new') return r.status === 'new';
+      if (mode === 'closed') return r.status === 'closed';
+      return r.status !== 'closed';
+    });
+    var newCount = allRequests.filter(function (r) { return r.status === 'new'; }).length;
+    $('req-count').textContent = String(newCount);
+    $('req-count-m').textContent = String(newCount);
+    reqSummary.textContent = allRequests.length ? (rows.length + ' shown of ' + allRequests.length + ' total, ' + newCount + ' new') : '';
+    reqList.textContent = '';
+    reqEmpty.hidden = rows.length > 0;
+    rows.forEach(function (r) {
+      var card = el('article', 'req');
+      var top = el('div', 'req-top');
+      top.appendChild(el('div', 'req-name', r.name || 'No name'));
+      top.appendChild(el('div', 'req-date', fmtDate(r.createdAt)));
+      card.appendChild(top);
+      var dl = el('dl');
+      [['Phone', r.phone], ['Email', r.email], ['Reach by', r.contactPref], ['Property', r.address],
+       ['Services', (r.services && r.services.length) ? r.services.join(', ') : 'Not sure yet'], ['Start', r.timeline]
+      ].forEach(function (p) {
+        if (!p[1]) return;
+        dl.appendChild(el('dt', null, p[0]));
+        dl.appendChild(el('dd', null, p[1]));
+      });
+      card.appendChild(dl);
+      if (r.details) card.appendChild(el('div', 'req-details', r.details));
+      var st = el('div', 'req-status');
+      var pill = el('span', 'pill' + (r.status === 'new' ? ' pill-new' : r.status === 'quoted' ? ' pill-quoted' : ''), r.status);
+      var lbl = el('label', null, 'Status'); lbl.setAttribute('for', 'st-' + r.id);
+      var sel = el('select'); sel.id = 'st-' + r.id;
+      STATUSES.forEach(function (s) {
+        var o = el('option', null, s.charAt(0).toUpperCase() + s.slice(1)); o.value = s; o.selected = s === r.status; sel.appendChild(o);
+      });
+      sel.addEventListener('change', function () {
+        var next = sel.value; sel.disabled = true;
+        db.doc('requests/' + r.id).update({ status: next }).catch(function () { sel.value = r.status; }).then(function () { sel.disabled = false; });
+      });
+      st.appendChild(pill); st.appendChild(lbl); st.appendChild(sel);
+      card.appendChild(st);
+      reqList.appendChild(card);
+    });
+  }
+  reqFilter.addEventListener('change', renderRequests);
+
+  function use(name) {
+    try {
+      if (window.claude && typeof window.claude.use === 'function') return window.claude.use(name).catch(function () { return null; });
+    } catch (e) {}
+    return Promise.resolve(null);
+  }
+  Promise.all([use('db'), use('user')]).then(function (res) {
+    db = res[0]; user = res[1];
+    if (!db || !user) return;
+    return user.canEdit().then(function (can) {
+      isAdmin = !!can;
+      if (!isAdmin) return;
+      requestsCol = db.collection('requests');
+      $('requests').hidden = false;
+      $('admin-nav').hidden = false;
+      $('admin-nav-m').hidden = false;
+      requestsCol.orderBy('createdAt', 'desc').limit(200).onSnapshot(function (snap) {
+        allRequests = snap.docs.map(function (doc) {
+          var d = doc.data() || {}; d.id = doc.id;
+          if (STATUSES.indexOf(d.status) < 0) d.status = 'new';
+          return d;
+        });
+        renderRequests();
+      }, function () { reqSummary.textContent = 'Requests could not be loaded right now.'; });
+    });
+  });
+
+  route();
+})();
+</script>
+
+</body>
+</html>
